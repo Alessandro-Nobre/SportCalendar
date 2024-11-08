@@ -1,4 +1,4 @@
-package Entities;
+package com.sportradar.SportCalendar.entities;
 
 public class MatchInfo {
 
