@@ -1,6 +1,6 @@
 package com.sportradar.SportCalendar.entities;
 
-public class Goals {
+public class Goal {
 
     private int goalId;
     private int resultId;

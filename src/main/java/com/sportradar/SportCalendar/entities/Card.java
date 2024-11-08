@@ -1,6 +1,6 @@
 package com.sportradar.SportCalendar.entities;
 
-public class Cards {
+public class Card {
 
 
     private int cardId;
