@@ -1,12 +1,23 @@
 package com.sportradar.SportCalendar.entities;
 
-public class Stage {
+import jakarta.persistence.*;
 
+@Entity
+@Table(name= "stage")
+public class StageEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int stageId;
+    @Column
     private String name;
+    @Column
     private int ordering;
 
-    public Stage(){
+    @OneToOne(mappedBy = "stageEntity")
+    private MatchEntity matchEntity;
+
+    public StageEntity(){
     }
 
     public String getName() {

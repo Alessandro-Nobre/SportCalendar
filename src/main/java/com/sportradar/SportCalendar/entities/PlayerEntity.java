@@ -1,30 +1,43 @@
 package com.sportradar.SportCalendar.entities;
 
-public class Player {
+import jakarta.persistence.*;
 
-    private int playersId;
-    private Team teamId;
+@Entity
+@Table(name= "player")
+public class PlayerEntity {
+
+    @Id
+    @PrimaryKeyJoinColumn
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int playerId;
+    @Column
     private String name;
+    @Column
     private int birthday;
+    @Column
     private int jersyNumber;
 
-    public Player(){
+    @ManyToOne
+    @JoinColumn(name = "teamId")
+    private TeamEntity teamEntity;
+
+    public PlayerEntity(){
     }
 
     public int getPlayersId() {
-        return playersId;
+        return playerId;
     }
 
     public void setPlayersId(int playersId) {
-        this.playersId = playersId;
+        this.playerId = playersId;
     }
 
-    public Team getTeamId() {
-        return teamId;
+    public TeamEntity getTeam() {
+        return teamEntity;
     }
 
-    public void setTeamId(Team teamId) {
-        this.teamId = teamId;
+    public void setTeam(TeamEntity teamEntity) {
+        this.teamEntity = teamEntity;
     }
 
     public String getName() {

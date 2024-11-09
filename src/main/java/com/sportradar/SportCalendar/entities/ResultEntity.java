@@ -1,14 +1,28 @@
 package com.sportradar.SportCalendar.entities;
 
-public class Result {
+import jakarta.persistence.*;
 
+@Entity
+@Table(name= "result")
+public class ResultEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int resultId;
+
+    @Column
     private byte homeGoals;
+
+    @Column
     private byte awayGoals;
+
+    @Column
     private String winner;
+
+    @Column
     private String message;
 
-    public Result(){
+    public ResultEntity(){
     }
 
     public int getResultId() {
