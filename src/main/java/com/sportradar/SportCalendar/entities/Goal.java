@@ -3,18 +3,18 @@ package com.sportradar.SportCalendar.entities;
 public class Goal {
 
     private int goalId;
-    private int resultId;
-    private int playerId;
+    private Result resultId;
+    private Player playerId;
     private int time;
 
     public Goal(){
     }
 
-    public int getResultId() {
+    public Result getResultId() {
         return resultId;
     }
 
-    public void setResultId(int resultId) {
+    public void setResultId(Result resultId) {
         this.resultId = resultId;
     }
 
@@ -26,11 +26,11 @@ public class Goal {
         this.goalId = goalId;
     }
 
-    public int getPlayerId() {
+    public Player getPlayerId() {
         return playerId;
     }
 
-    public void setPlayerId(int playerId) {
+    public void setPlayerId(Player playerId) {
         this.playerId = playerId;
     }
 

@@ -4,8 +4,8 @@ public class Card {
 
 
     private int cardId;
-    private int resultId;
-    private int playerId;
+    private Result resultId;
+    private Player playerId;
     private String cardType;
     private String reason;
     private int time;
@@ -21,19 +21,19 @@ public class Card {
         this.cardId = cardId;
     }
 
-    public int getResultId() {
+    public Result getResultId() {
         return resultId;
     }
 
-    public void setResultId(int resultId) {
+    public void setResultId(Result resultId) {
         this.resultId = resultId;
     }
 
-    public int getPlayerId() {
+    public Player getPlayerId() {
         return playerId;
     }
 
-    public void setPlayerId(int playerId) {
+    public void setPlayerId(Player playerId) {
         this.playerId = playerId;
     }
 

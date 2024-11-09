@@ -3,7 +3,7 @@ package com.sportradar.SportCalendar.entities;
 public class Player {
 
     private int playersId;
-    private int teamId;
+    private Team teamId;
     private String name;
     private int birthday;
     private int jersyNumber;
@@ -19,11 +19,11 @@ public class Player {
         this.playersId = playersId;
     }
 
-    public int getTeamId() {
+    public Team getTeamId() {
         return teamId;
     }
 
-    public void setTeamId(int teamId) {
+    public void setTeamId(Team teamId) {
         this.teamId = teamId;
     }
 

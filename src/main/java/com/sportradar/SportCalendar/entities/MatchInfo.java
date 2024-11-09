@@ -8,15 +8,49 @@ public class MatchInfo {
     private int timeVenueUTC;
     private int date;
     private String stadium;
-    private int homeTeam;
-    private int awayTeam;
-    private int result;
+    private Team homeTeam;
+    private Team awayTeam;
+    private Result result;
+    private Stage stage;
     private String group;
     private String originCompetitionId;
     private String originCompetitionName;
     private int created_at;
 
     public MatchInfo() {
+    }
+
+
+    public Team getHomeTeam() {
+        return homeTeam;
+    }
+
+    public void setHomeTeam(Team homeTeam) {
+        this.homeTeam = homeTeam;
+    }
+
+    public Team getAwayTeam() {
+        return awayTeam;
+    }
+
+    public void setAwayTeam(Team awayTeam) {
+        this.awayTeam = awayTeam;
+    }
+
+    public Result getResult() {
+        return result;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     public int getMatchId() {
@@ -59,36 +93,12 @@ public class MatchInfo {
         this.stadium = stadium;
     }
 
-    public int getHomeTeam() {
-        return homeTeam;
-    }
-
-    public void setHomeTeam(int homeTeam) {
-        this.homeTeam = homeTeam;
-    }
-
     public int getDate() {
         return date;
     }
 
     public void setDate(int date) {
         this.date = date;
-    }
-
-    public int getAwayTeam() {
-        return awayTeam;
-    }
-
-    public void setAwayTeam(int awayTeam) {
-        this.awayTeam = awayTeam;
-    }
-
-    public int getResult() {
-        return result;
-    }
-
-    public void setResult(int result) {
-        this.result = result;
     }
 
     public String getGroup() {
