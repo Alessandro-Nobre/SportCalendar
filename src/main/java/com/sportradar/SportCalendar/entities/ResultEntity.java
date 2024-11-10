@@ -25,6 +25,28 @@ public class ResultEntity {
     public ResultEntity(){
     }
 
+    public ResultEntity(byte homeGoals,
+                        byte awayGoals,
+                        String winner,
+                        String message) {
+        this.homeGoals = homeGoals;
+        this.awayGoals = awayGoals;
+        this.winner = winner;
+        this.message = message;
+    }
+
+    public ResultEntity(int resultId,
+                        byte homeGoals,
+                        byte awayGoals,
+                        String winner,
+                        String message) {
+        this.resultId = resultId;
+        this.homeGoals = homeGoals;
+        this.awayGoals = awayGoals;
+        this.winner = winner;
+        this.message = message;
+    }
+
     public int getResultId() {
         return resultId;
     }
@@ -63,5 +85,16 @@ public class ResultEntity {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return "ResultEntity{" +
+                "resultId=" + resultId +
+                ", homeGoals=" + homeGoals +
+                ", awayGoals=" + awayGoals +
+                ", winner='" + winner + '\'' +
+                ", message='" + message + '\'' +
+                '}';
     }
 }

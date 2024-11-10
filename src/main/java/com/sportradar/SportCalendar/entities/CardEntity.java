@@ -11,10 +11,13 @@ public class CardEntity {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cardId;
+
     @Column
     private String cardType;
+
     @Column
     private String reason;
+
     @Column
     private int time;
 
@@ -28,6 +31,32 @@ public class CardEntity {
 
 
     public CardEntity(){
+    }
+
+    public CardEntity(String cardType,
+                      String reason,
+                      int time,
+                      ResultEntity resultEntity,
+                      PlayerEntity playerEntity) {
+        this.cardType = cardType;
+        this.reason = reason;
+        this.time = time;
+        this.resultEntity = resultEntity;
+        this.playerEntity = playerEntity;
+    }
+
+    public CardEntity(int cardId,
+                      String cardType,
+                      String reason,
+                      int time,
+                      ResultEntity resultEntity,
+                      PlayerEntity playerEntity) {
+        this.cardId = cardId;
+        this.cardType = cardType;
+        this.reason = reason;
+        this.time = time;
+        this.resultEntity = resultEntity;
+        this.playerEntity = playerEntity;
     }
 
     public int getCardId() {
@@ -76,5 +105,17 @@ public class CardEntity {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "CardEntity{" +
+                "cardId=" + cardId +
+                ", cardType='" + cardType + '\'' +
+                ", reason='" + reason + '\'' +
+                ", time=" + time +
+                ", resultEntity=" + resultEntity +
+                ", playerEntity=" + playerEntity +
+                '}';
     }
 }

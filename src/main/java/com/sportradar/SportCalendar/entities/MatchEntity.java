@@ -57,6 +57,60 @@ public class MatchEntity {
     public MatchEntity() {
     }
 
+    public MatchEntity(int matchId,
+                       String season,
+                       String status,
+                       DateTime dateTime,
+                       String stadium,
+                       String matchGroup,
+                       String originCompetitionId,
+                       String originCompetitionName,
+                       Timestamp created_at,
+                       TeamEntity awayTeam,
+                       TeamEntity homeTeam,
+                       StageEntity stageEntity,
+                       ResultEntity resultEntity) {
+        this.matchId = matchId;
+        this.season = season;
+        this.status = status;
+        this.dateTime = dateTime;
+        this.stadium = stadium;
+        this.matchGroup = matchGroup;
+        this.originCompetitionId = originCompetitionId;
+        this.originCompetitionName = originCompetitionName;
+        this.created_at = created_at;
+        this.awayTeam = awayTeam;
+        this.homeTeam = homeTeam;
+        this.stageEntity = stageEntity;
+        this.resultEntity = resultEntity;
+    }
+
+    public MatchEntity(String season,
+                       String status,
+                       DateTime dateTime,
+                       StageEntity stageEntity,
+                       ResultEntity resultEntity,
+                       TeamEntity awayTeam,
+                       TeamEntity homeTeam,
+                       Timestamp created_at,
+                       String originCompetitionName,
+                       String originCompetitionId,
+                       String matchGroup,
+                       String stadium) {
+        this.season = season;
+        this.status = status;
+        this.dateTime = dateTime;
+        this.stageEntity = stageEntity;
+        this.resultEntity = resultEntity;
+        this.awayTeam = awayTeam;
+        this.homeTeam = homeTeam;
+        this.created_at = created_at;
+        this.originCompetitionName = originCompetitionName;
+        this.originCompetitionId = originCompetitionId;
+        this.matchGroup = matchGroup;
+        this.stadium = stadium;
+    }
+
     public TeamEntity getHomeTeam() {
         return homeTeam;
     }
@@ -160,5 +214,24 @@ public class MatchEntity {
 
     public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
+    }
+
+    @Override
+    public String toString() {
+        return "MatchEntity{" +
+                "matchId=" + matchId +
+                ", season='" + season + '\'' +
+                ", status='" + status + '\'' +
+                ", dateTime=" + dateTime +
+                ", stadium='" + stadium + '\'' +
+                ", matchGroup='" + matchGroup + '\'' +
+                ", originCompetitionId='" + originCompetitionId + '\'' +
+                ", originCompetitionName='" + originCompetitionName + '\'' +
+                ", created_at=" + created_at +
+                ", homeTeam=" + homeTeam +
+                ", awayTeam=" + awayTeam +
+                ", resultEntity=" + resultEntity +
+                ", stageEntity=" + stageEntity +
+                '}';
     }
 }

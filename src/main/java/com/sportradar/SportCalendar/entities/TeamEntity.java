@@ -36,6 +36,40 @@ public class TeamEntity {
     public TeamEntity(){
     }
 
+    public TeamEntity(String name,
+                      String status,
+                      String officialName,
+                      String slug,
+                      String abbreviation,
+                      String stagePosition,
+                      int playersId) {
+        this.name = name;
+        this.status = status;
+        this.officialName = officialName;
+        this.slug = slug;
+        this.abbreviation = abbreviation;
+        this.stagePosition = stagePosition;
+        this.playersId = playersId;
+    }
+
+    public TeamEntity(int teamId,
+                      String name,
+                      String status,
+                      String officialName,
+                      String slug,
+                      String abbreviation,
+                      String stagePosition,
+                      int playersId) {
+        this.teamId = teamId;
+        this.name = name;
+        this.status = status;
+        this.officialName = officialName;
+        this.slug = slug;
+        this.abbreviation = abbreviation;
+        this.stagePosition = stagePosition;
+        this.playersId = playersId;
+    }
+
     public int getTeamId() {
         return teamId;
     }
@@ -99,4 +133,20 @@ public class TeamEntity {
     public void setPlayersId(int playersId) {
         this.playersId = playersId;
     }
+
+    @Override
+    public String toString() {
+        return "TeamEntity{" +
+                "teamId=" + teamId +
+                ", name='" + name + '\'' +
+                ", status='" + status + '\'' +
+                ", officialName='" + officialName + '\'' +
+                ", slug='" + slug + '\'' +
+                ", abbreviation='" + abbreviation + '\'' +
+                ", stagePosition='" + stagePosition + '\'' +
+                ", playersId=" + playersId +
+                '}';
+    }
+
+
 }

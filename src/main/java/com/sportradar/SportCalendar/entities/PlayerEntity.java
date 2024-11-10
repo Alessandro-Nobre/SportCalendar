@@ -10,10 +10,13 @@ public class PlayerEntity {
     @PrimaryKeyJoinColumn
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int playerId;
+
     @Column
     private String name;
+
     @Column
     private int birthday;
+
     @Column
     private int jersyNumber;
 
@@ -22,6 +25,28 @@ public class PlayerEntity {
     private TeamEntity teamEntity;
 
     public PlayerEntity(){
+    }
+
+    public PlayerEntity(String name,
+                        int birthday,
+                        int jersyNumber,
+                        TeamEntity teamEntity) {
+        this.name = name;
+        this.birthday = birthday;
+        this.jersyNumber = jersyNumber;
+        this.teamEntity = teamEntity;
+    }
+
+    public PlayerEntity(int playerId,
+                        String name,
+                        int birthday,
+                        int jersyNumber,
+                        TeamEntity teamEntity) {
+        this.playerId = playerId;
+        this.name = name;
+        this.birthday = birthday;
+        this.jersyNumber = jersyNumber;
+        this.teamEntity = teamEntity;
     }
 
     public int getPlayersId() {
@@ -62,5 +87,16 @@ public class PlayerEntity {
 
     public void setJersyNumber(int jersyNumber) {
         this.jersyNumber = jersyNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "PlayerEntity{" +
+                "playerId=" + playerId +
+                ", name='" + name + '\'' +
+                ", birthday=" + birthday +
+                ", jersyNumber=" + jersyNumber +
+                ", teamEntity=" + teamEntity +
+                '}';
     }
 }

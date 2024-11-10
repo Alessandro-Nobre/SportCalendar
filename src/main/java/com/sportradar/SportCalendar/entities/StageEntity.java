@@ -9,8 +9,10 @@ public class StageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int stageId;
+
     @Column
     private String name;
+
     @Column
     private int ordering;
 
@@ -18,6 +20,24 @@ public class StageEntity {
     private MatchEntity matchEntity;
 
     public StageEntity(){
+    }
+
+    public StageEntity(String name,
+                       int ordering,
+                       MatchEntity matchEntity) {
+        this.name = name;
+        this.ordering = ordering;
+        this.matchEntity = matchEntity;
+    }
+
+    public StageEntity(int stageId,
+                       String name,
+                       int ordering,
+                       MatchEntity matchEntity) {
+        this.stageId = stageId;
+        this.name = name;
+        this.ordering = ordering;
+        this.matchEntity = matchEntity;
     }
 
     public String getName() {
@@ -42,5 +62,15 @@ public class StageEntity {
 
     public void setOrdering(int ordering) {
         this.ordering = ordering;
+    }
+
+    @Override
+    public String toString() {
+        return "StageEntity{" +
+                "stageId=" + stageId +
+                ", name='" + name + '\'' +
+                ", ordering=" + ordering +
+                ", matchEntity=" + matchEntity +
+                '}';
     }
 }

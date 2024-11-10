@@ -24,6 +24,24 @@ public class GoalEntity {
     public GoalEntity(){
     }
 
+    public GoalEntity(int time,
+                      ResultEntity resultEntity,
+                      PlayerEntity playerEntity) {
+        this.time = time;
+        this.resultEntity = resultEntity;
+        this.playerEntity = playerEntity;
+    }
+
+    public GoalEntity(int goalId,
+                      PlayerEntity playerEntity,
+                      ResultEntity resultEntity,
+                      int time) {
+        this.goalId = goalId;
+        this.playerEntity = playerEntity;
+        this.resultEntity = resultEntity;
+        this.time = time;
+    }
+
     public ResultEntity getResultId() {
         return resultEntity;
     }
@@ -54,5 +72,15 @@ public class GoalEntity {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "GoalEntity{" +
+                "goalId=" + goalId +
+                ", time=" + time +
+                ", resultEntity=" + resultEntity +
+                ", playerEntity=" + playerEntity +
+                '}';
     }
 }
