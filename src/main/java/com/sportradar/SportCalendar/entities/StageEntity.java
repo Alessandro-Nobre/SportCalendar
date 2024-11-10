@@ -16,28 +16,21 @@ public class StageEntity {
     @Column
     private int ordering;
 
-    @OneToOne(mappedBy = "stageEntity")
-    private MatchEntity matchEntity;
-
     public StageEntity(){
     }
 
     public StageEntity(String name,
-                       int ordering,
-                       MatchEntity matchEntity) {
+                       int ordering) {
         this.name = name;
         this.ordering = ordering;
-        this.matchEntity = matchEntity;
     }
 
     public StageEntity(int stageId,
                        String name,
-                       int ordering,
-                       MatchEntity matchEntity) {
+                       int ordering) {
         this.stageId = stageId;
         this.name = name;
         this.ordering = ordering;
-        this.matchEntity = matchEntity;
     }
 
     public String getName() {
@@ -70,7 +63,6 @@ public class StageEntity {
                 "stageId=" + stageId +
                 ", name='" + name + '\'' +
                 ", ordering=" + ordering +
-                ", matchEntity=" + matchEntity +
                 '}';
     }
 }

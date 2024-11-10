@@ -14,11 +14,11 @@ public class GoalEntity {
     private int time;
 
     @ManyToOne
-    @JoinColumn(name = "result_Id")
+    @JoinColumn(name = "result_id")
     private ResultEntity resultEntity;
 
     @ManyToOne
-    @JoinColumn(name = "player_Id")
+    @JoinColumn(name = "player_id")
     private PlayerEntity playerEntity;
 
     public GoalEntity(){

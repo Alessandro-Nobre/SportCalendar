@@ -21,7 +21,7 @@ public class PlayerEntity {
     private int jersyNumber;
 
     @ManyToOne
-    @JoinColumn(name = "teamId")
+    @JoinColumn(name = "team_id")
     private TeamEntity teamEntity;
 
     public PlayerEntity(){
