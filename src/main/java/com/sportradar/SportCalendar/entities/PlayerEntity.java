@@ -1,7 +1,15 @@
 package com.sportradar.SportCalendar.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
 @Table(name= "player")
 public class PlayerEntity {
@@ -23,71 +31,6 @@ public class PlayerEntity {
     @ManyToOne
     @JoinColumn(name = "team_id")
     private TeamEntity teamEntity;
-
-    public PlayerEntity(){
-    }
-
-    public PlayerEntity(String name,
-                        int birthday,
-                        int jersyNumber,
-                        TeamEntity teamEntity) {
-        this.name = name;
-        this.birthday = birthday;
-        this.jersyNumber = jersyNumber;
-        this.teamEntity = teamEntity;
-    }
-
-    public PlayerEntity(int playerId,
-                        String name,
-                        int birthday,
-                        int jersyNumber,
-                        TeamEntity teamEntity) {
-        this.playerId = playerId;
-        this.name = name;
-        this.birthday = birthday;
-        this.jersyNumber = jersyNumber;
-        this.teamEntity = teamEntity;
-    }
-
-    public int getPlayersId() {
-        return playerId;
-    }
-
-    public void setPlayersId(int playersId) {
-        this.playerId = playersId;
-    }
-
-    public TeamEntity getTeam() {
-        return teamEntity;
-    }
-
-    public void setTeam(TeamEntity teamEntity) {
-        this.teamEntity = teamEntity;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(int birthday) {
-        this.birthday = birthday;
-    }
-
-    public int getJersyNumber() {
-        return jersyNumber;
-    }
-
-    public void setJersyNumber(int jersyNumber) {
-        this.jersyNumber = jersyNumber;
-    }
 
     @Override
     public String toString() {

@@ -1,7 +1,15 @@
 package com.sportradar.SportCalendar.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
 @Table(name = "card")
 public class CardEntity {
@@ -28,84 +36,6 @@ public class CardEntity {
     @ManyToOne
     @JoinColumn(name = "player_id")
     private PlayerEntity playerEntity;
-
-
-    public CardEntity(){
-    }
-
-    public CardEntity(String cardType,
-                      String reason,
-                      int time,
-                      ResultEntity resultEntity,
-                      PlayerEntity playerEntity) {
-        this.cardType = cardType;
-        this.reason = reason;
-        this.time = time;
-        this.resultEntity = resultEntity;
-        this.playerEntity = playerEntity;
-    }
-
-    public CardEntity(int cardId,
-                      String cardType,
-                      String reason,
-                      int time,
-                      ResultEntity resultEntity,
-                      PlayerEntity playerEntity) {
-        this.cardId = cardId;
-        this.cardType = cardType;
-        this.reason = reason;
-        this.time = time;
-        this.resultEntity = resultEntity;
-        this.playerEntity = playerEntity;
-    }
-
-    public int getCardId() {
-        return cardId;
-    }
-
-    public void setCardId(int cardId) {
-        this.cardId = cardId;
-    }
-
-    public ResultEntity getResult() {
-        return resultEntity;
-    }
-
-    public void setResult(ResultEntity resultEntity) {
-        this.resultEntity = resultEntity;
-    }
-
-    public PlayerEntity getPlayer() {
-        return playerEntity;
-    }
-
-    public void setPlayer(PlayerEntity playerEntityId) {
-        this.playerEntity = playerEntityId;
-    }
-
-    public String getCardType() {
-        return cardType;
-    }
-
-    public void setCardType(String cardType) {
-        this.cardType = cardType;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public int getTime() {
-        return time;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
-    }
 
     @Override
     public String toString() {
