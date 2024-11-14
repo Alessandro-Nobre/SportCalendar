@@ -1,40 +1,36 @@
 package com.sportradar.SportCalendar.controller;
 
-
-
+import com.sportradar.SportCalendar.dto.match.MatchResponse;
+import com.sportradar.SportCalendar.dto.match.MatchSaveRequest;
 import com.sportradar.SportCalendar.entities.MatchEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.sportradar.SportCalendar.service.MatchService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/match")
 public class MatchController {
 
+    private final MatchService matchService;
+
+    @Autowired
+    public MatchController(MatchService matchService) {
+        this.matchService = matchService;
+    }
 
     @GetMapping
     public List<MatchEntity> getMatches() {
-        return List.of(
-                MatchEntity.builder()
-                        .matchId(1)
-                        .season(2024)
-                        .status("played")
-                        .dateTime(LocalDateTime.parse("2019-03-27T10:15:30"))
-                        .stadium(null)
-                        .matchGroup(null)
-                        .originCompetitionId("afc-champions-league")
-                        .originCompetitionName("AFC Champions League")
-                        .created_at(new Timestamp(System.currentTimeMillis()))
-                        .awayTeam(null)
-                        .homeTeam(null)
-                        .stageEntity(null)
-                        .resultEntity(null)
-                        .build()
+        return matchService.getMatches();
+    }
 
-        );
+    @PostMapping
+    public ResponseEntity<MatchResponse> registerNewMatch(@Valid @RequestBody MatchSaveRequest matchSaveRequest) {
+
+        return new ResponseEntity<>(matchService.addNewMatch(matchSaveRequest), HttpStatus.CREATED);
     }
 }

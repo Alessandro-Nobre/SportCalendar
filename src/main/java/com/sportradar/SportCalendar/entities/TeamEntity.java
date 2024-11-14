@@ -36,9 +36,6 @@ public class TeamEntity {
     @Column()
     private String stagePosition;
 
-    @Column()
-    private int playersId;
-
     @Override
     public String toString() {
         return "TeamEntity{" +
@@ -49,7 +46,6 @@ public class TeamEntity {
                 ", slug='" + slug + '\'' +
                 ", abbreviation='" + abbreviation + '\'' +
                 ", stagePosition='" + stagePosition + '\'' +
-                ", playersId=" + playersId +
                 '}';
     }
 

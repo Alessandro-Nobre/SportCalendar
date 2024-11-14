@@ -18,7 +18,15 @@ import java.time.LocalDateTime;
 public class MatchEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "matchId_sequence",
+            sequenceName = "matchId_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "matchId_sequence"
+    )
     private int matchId;
 
     @Column()
@@ -43,13 +51,13 @@ public class MatchEntity {
     private String originCompetitionName;
 
     @Column()
-    private Timestamp created_at;
+    private Timestamp createdAt;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "home_team_id")
     private TeamEntity homeTeam;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "away_team_id")
     private TeamEntity awayTeam;
 
@@ -60,6 +68,11 @@ public class MatchEntity {
     @OneToOne()
     @JoinColumn(name = "stage_id")
     private StageEntity stageEntity;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Timestamp(System.currentTimeMillis());
+    }
 
     @Override
     public String toString() {
@@ -72,7 +85,7 @@ public class MatchEntity {
                 ", matchGroup='" + matchGroup + '\'' +
                 ", originCompetitionId='" + originCompetitionId + '\'' +
                 ", originCompetitionName='" + originCompetitionName + '\'' +
-                ", created_at=" + created_at +
+                ", created_at=" + createdAt +
                 ", homeTeam=" + homeTeam +
                 ", awayTeam=" + awayTeam +
                 ", resultEntity=" + resultEntity +

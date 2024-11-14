@@ -1,4 +1,3 @@
 package com.sportradar.SportCalendar.service;
 
-public class StageService {
-}
+public class StageService {}
