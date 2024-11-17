@@ -2,7 +2,6 @@ package com.sportradar.SportCalendar.controller;
 
 import com.sportradar.SportCalendar.dto.match.MatchResponse;
 import com.sportradar.SportCalendar.dto.match.MatchSaveRequest;
-import com.sportradar.SportCalendar.entities.MatchEntity;
 import com.sportradar.SportCalendar.service.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,8 +23,8 @@ public class MatchController {
     }
 
     @GetMapping
-    public List<MatchEntity> getMatches() {
-        return matchService.getMatches();
+    public ResponseEntity<List<MatchResponse>> getMatches() {
+        return new ResponseEntity<>(matchService.getMatches(), HttpStatus.OK);
     }
 
     @PostMapping

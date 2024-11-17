@@ -19,6 +19,7 @@ import com.sportradar.SportCalendar.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,8 +42,8 @@ public class MatchService {
     public MatchResponse addNewMatch(MatchSaveRequest matchSaveRequest) {
         StageEntity stageEntity = saveStageEntity(matchSaveRequest.getStage());
         ResultEntity resultEntity = saveResultEntity(matchSaveRequest.getResult());
-        TeamEntity homeTeam = teamRepository.getByTeamId(matchSaveRequest.getHomeTeamId());
-        TeamEntity awayTeam = teamRepository.getByTeamId(matchSaveRequest.getAwayTeamId());
+        TeamEntity homeTeam = teamRepository.getReferenceById(matchSaveRequest.getHomeTeamId());
+        TeamEntity awayTeam = teamRepository.getReferenceById(matchSaveRequest.getAwayTeamId());
 
         MatchEntity matchToSave = MatchConverter.convertMatchSaveRequestToMatchEntity(matchSaveRequest, stageEntity, homeTeam, awayTeam, resultEntity);
 
@@ -61,8 +62,14 @@ public class MatchService {
            return resultRepository.save(resultEntity);
         }
 
-    public List<MatchEntity> getMatches() {
-        return matchRepository.findAll();
+    public List<MatchResponse> getMatches() {
+        List<MatchEntity> matchList = matchRepository.findAll();
+
+        List<MatchResponse> matchResponseList = new ArrayList<>();
+        for (int i = 0; i < matchList.size(); i++) {
+            matchResponseList.add(MatchConverter.convertMatchEntityToMatchResponse(matchList.get(i)));
+        }
+        return matchResponseList;
     }
 
 }
