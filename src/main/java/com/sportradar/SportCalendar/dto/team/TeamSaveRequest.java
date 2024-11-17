@@ -7,9 +7,9 @@ import lombok.Data;
 @Builder
 public class TeamSaveRequest {
         private String name;
-        private String status;
         private String officialName;
         private String slug;
         private String abbreviation;
+        private String teamCountryCode;
         private String stagePosition;
 }

@@ -15,14 +15,19 @@ import lombok.NoArgsConstructor;
 public class TeamEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "teamId_sequence",
+            sequenceName = "teamId_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "teamhId_sequence"
+    )
     private int teamId;
 
     @Column()
     private String name;
-
-    @Column()
-    private String status;
 
     @Column()
     private String officialName;
@@ -34,6 +39,9 @@ public class TeamEntity {
     private String abbreviation;
 
     @Column()
+    private  String teamCountryCode;
+
+    @Column()
     private String stagePosition;
 
     @Override
@@ -41,10 +49,10 @@ public class TeamEntity {
         return "TeamEntity{" +
                 "teamId=" + teamId +
                 ", name='" + name + '\'' +
-                ", status='" + status + '\'' +
                 ", officialName='" + officialName + '\'' +
                 ", slug='" + slug + '\'' +
                 ", abbreviation='" + abbreviation + '\'' +
+                ", teamCountryCode='" + teamCountryCode + '\'' +
                 ", stagePosition='" + stagePosition + '\'' +
                 '}';
     }
