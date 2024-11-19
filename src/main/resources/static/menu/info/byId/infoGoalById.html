@@ -58,7 +58,6 @@
     }
 
   </style>
-
 </head>
 <body>
 <div id="main">
@@ -71,31 +70,39 @@
 </div>
 <div id="menu">
 
-  <button><a href="../index.html">Matches</a></button>
-  <button><a href="info.html">Events Info</a></button>
-  <button><a href="../create/create.html">Create Events</a></button>
-  <button><a href="../delete/delete.html">Delete Events</a></button>
+  <button><a href="../../index.html">Matches</a></button>
+  <button><a href="../info.html">Events Info</a></button>
+  <button><a href="../../create/create.html">Create Events</a></button>
+  <button><a href="../../delete/delete.html">Delete Events</a></button>
+
 
 </div>
 
 <div id="options">
-  <button><a href="infoMatch.html">Matches</a></button>
-  <button><a href="infoTeam.html">Teams</a></button>
-  <button><a href="infoPlayer.html">Players</a></button>
-  <button><a href="infoStage.html">Stages</a></button>
-  <button><a href="infoCard.html">Cards</a></button>
-  <button>Goals</button>
-  <button><a href="infoResult.html">Results</a></button>
+  <button><a href="../infoMatch.html">Matches</a></button>
+  <button><a href="../infoTeam.html">Teams</a></button>
+  <button><a href="../infoPlayer.html">Players</a></button>
+  <button><a href="../infoStage.html">Stages</a></button>
+  <button><a href="../infoCard.html">Cards</a></button>
+  <button><a href="../infoGoal.html">Goals</a></button>
+  <button><a href="../infoResult.html"> Results</a></button>
 </div>
-
 
 <div>
 
-  <button id="getAll"><a href="../afterRequest.html">Get All</a></button>
-
-  <button id="getById"><a href="byId/infoGoalById.html">Get By ID</a></button>
+  <h3>Please inform what Goal you want to check</h3>
 
 </div>
+
+<form action="/submit" method="GET">
+
+  <!-- Goal Id -->
+
+  <label for="goalId">Enter Goal ID:</label>
+  <input id="goalId" min="0" name="goalId" required step="1" type="number">
+  <button><a href="../../afterRequest.html">Get Goal Information</a></button>
+
+</form>
 
 <script src="../../js/app.js"></script>
 
