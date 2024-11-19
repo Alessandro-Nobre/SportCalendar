@@ -18,15 +18,7 @@ import java.time.LocalDateTime;
 public class MatchEntity {
 
     @Id
-    @SequenceGenerator(
-            name = "matchId_sequence",
-            sequenceName = "matchId_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "matchId_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int matchId;
 
     @Column()

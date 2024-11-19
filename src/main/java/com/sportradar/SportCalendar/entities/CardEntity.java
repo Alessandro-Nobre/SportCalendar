@@ -15,8 +15,6 @@ import lombok.NoArgsConstructor;
 public class CardEntity {
 
     @Id
-    @PrimaryKeyJoinColumn
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cardId;
 

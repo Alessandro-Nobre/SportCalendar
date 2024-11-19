@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/player")
@@ -28,5 +29,17 @@ public class PlayerController {
     @PostMapping
     public ResponseEntity<PlayerResponse> registerNewPlayer(@Valid @RequestBody PlayerSaveRequest playerSaveRequest) {
         return new ResponseEntity<>(playerService.addNewPlayer(playerSaveRequest), HttpStatus.OK);
+    }
+
+    @GetMapping("/{playerId}")
+    public ResponseEntity<Optional<PlayerResponse>> getPlayerById(@PathVariable int playerId) {
+        return new ResponseEntity<>(playerService.getPlayerById(playerId), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{playerId}")
+    public ResponseEntity<Void> deletePlayer(@PathVariable int playerId) {
+        playerService.deletePlayerById(playerId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "api/controller")
+@RequestMapping(path = "api/stage")
 public class StageController {
 
     private final StageService stageService;
@@ -29,6 +30,18 @@ public class StageController {
     public ResponseEntity<StageResponse> registerNewStage(@Valid @RequestBody StageSaveRequest stageSaveRequest){
 
         return new ResponseEntity<>(stageService.addNewStage(stageSaveRequest), HttpStatus.OK);
+    }
+
+    @GetMapping("/{stageId}")
+    public ResponseEntity<Optional<StageResponse>> getStageById(@PathVariable int stageId) {
+        return new ResponseEntity<>(stageService.getStageById(stageId), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{stageId}")
+    public ResponseEntity<Void> deleteStage(@PathVariable int stageId) {
+        stageService.deleteStageById(stageId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

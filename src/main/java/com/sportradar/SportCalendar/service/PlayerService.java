@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlayerService {
@@ -35,11 +36,6 @@ public class PlayerService {
         return PlayerConverter.convertPlayerEntityToPlayerResponse(playerSaved);
     }
 
-//    private TeamEntity saveTeamEntity(TeamSaveRequest teamSaveRequest) {
-//        TeamEntity teamEntity = TeamConverter.convertTeamSaveRequestToTeamEntity(teamSaveRequest);
-//        return teamRepository.save(teamEntity);
-//    }
-
     public List<PlayerResponse> getPlayers() {
         List<PlayerEntity> playerEntityList = playerRepository.findAll();
 
@@ -49,4 +45,24 @@ public class PlayerService {
         }
         return playerResponseList;
     }
+
+    public Optional<PlayerResponse> getPlayerById(int playerId) {
+        Optional<PlayerEntity> playerEntity = playerRepository.findById(playerId);
+
+      if (playerEntity.isPresent()) {
+          return Optional.ofNullable(PlayerConverter.convertPlayerEntityToPlayerResponse(playerEntity.get()));
+      }
+
+      return Optional.empty();
+    }
+
+    public void deletePlayerById(int playerId) {
+        Optional<PlayerEntity> player = playerRepository.findById(playerId);
+
+        if (player.isPresent()) {
+            playerRepository.deleteById(playerId);
+        }
+
+    }
+
 }

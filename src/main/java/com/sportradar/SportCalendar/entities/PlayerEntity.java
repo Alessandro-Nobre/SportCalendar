@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 public class PlayerEntity {
 
     @Id
-    @PrimaryKeyJoinColumn
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int playerId;
 
@@ -26,7 +25,7 @@ public class PlayerEntity {
     private int birthday;
 
     @Column
-    private int jersyNumber;
+    private int jerseyNumber;
 
     @ManyToOne
     @JoinColumn(name = "team_id")
@@ -38,7 +37,7 @@ public class PlayerEntity {
                 "playerId=" + playerId +
                 ", name='" + name + '\'' +
                 ", birthday=" + birthday +
-                ", jersyNumber=" + jersyNumber +
+                ", jerseyNumber=" + jerseyNumber +
                 ", teamEntity=" + teamEntity +
                 '}';
     }

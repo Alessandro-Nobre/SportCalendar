@@ -13,7 +13,7 @@ public class PlayerConverter {
         return PlayerEntity.builder()
                 .name(playerSaveRequest.getName())
                 .birthday(playerSaveRequest.getBirthday())
-                .jersyNumber(playerSaveRequest.getJersyNumber())
+                .jerseyNumber(playerSaveRequest.getJerseyNumber())
                 .teamEntity(teamEntity)
                 .build();
     }
@@ -24,7 +24,7 @@ public class PlayerConverter {
                 .playerId(playerEntity.getPlayerId())
                 .name(playerEntity.getName())
                 .birthday(playerEntity.getBirthday())
-                .jersyNumber(playerEntity.getJersyNumber())
+                .jerseyNumber(playerEntity.getJerseyNumber())
                 .team(TeamConverter.convertTeamEntityToTeamResponse(playerEntity.getTeamEntity()))
                 .build();
     }

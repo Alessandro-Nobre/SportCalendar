@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ResultService {
@@ -31,10 +32,31 @@ public class ResultService {
     public List<ResultResponse> getResults() {
         List<ResultEntity> resultEntityList = resultRepository.findAll();
 
-        List<ResultResponse> playerResponseList = new ArrayList<>();
+        List<ResultResponse> resultResponseList = new ArrayList<>();
         for (int i = 0; i < resultEntityList.size(); i++) {
-            playerResponseList.add(ResultConverter.convertResultEntityToResultResponse(resultEntityList.get(i)));
+            resultResponseList.add(ResultConverter.convertResultEntityToResultResponse(resultEntityList.get(i)));
         }
-        return playerResponseList;
+        return resultResponseList;
     }
+
+    public Optional<ResultResponse> getResultById(int resultId) {
+        Optional<ResultEntity> resultEntity = resultRepository.findById(resultId);
+
+        if (resultEntity.isPresent()) {
+            return Optional.ofNullable(ResultConverter.convertResultEntityToResultResponse(resultEntity.get()));
+        }
+
+        return Optional.empty();
+    }
+
+    public void deleteResultById(int resultId) {
+        Optional<ResultEntity> result = resultRepository.findById(resultId);
+
+        if (result.isPresent()) {
+            resultRepository.deleteById(resultId);
+        }
+
+    }
+
+
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StageService {
@@ -32,10 +33,31 @@ public class StageService {
     public List<StageResponse> getStages() {
         List<StageEntity> stageEntityList = stageRepository.findAll();
 
-        List<StageResponse> playerResponseList = new ArrayList<>();
+        List<StageResponse> stageResponseList = new ArrayList<>();
         for (int i = 0; i < stageEntityList.size(); i++) {
-            playerResponseList.add(StageConverter.convertStageEntityToStageResponse(stageEntityList.get(i)));
+            stageResponseList.add(StageConverter.convertStageEntityToStageResponse(stageEntityList.get(i)));
         }
-        return playerResponseList;
+        return stageResponseList;
     }
+
+    public Optional<StageResponse> getStageById(int stageId) {
+        Optional<StageEntity> stageEntity = stageRepository.findById(stageId);
+
+        if (stageEntity.isPresent()) {
+            return Optional.ofNullable(StageConverter.convertStageEntityToStageResponse(stageEntity.get()));
+        }
+
+        return Optional.empty();
+    }
+
+    public void deleteStageById(int stageId) {
+        Optional<StageEntity> stage = stageRepository.findById(stageId);
+
+        if (stage.isPresent()) {
+            stageRepository.deleteById(stageId);
+        }
+
+    }
+
+
 }

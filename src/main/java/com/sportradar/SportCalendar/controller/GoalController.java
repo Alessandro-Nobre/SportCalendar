@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "api/Goal")
+@RequestMapping(path = "api/goal")
 public class GoalController {
 
     private final GoalService goalService;
@@ -29,6 +30,18 @@ public class GoalController {
     public ResponseEntity<GoalResponse> registerNewGoal(@Valid @RequestBody GoalSaveRequest goalSaveRequest) {
 
         return new ResponseEntity<>(goalService.addNewGoal(goalSaveRequest), HttpStatus.OK);
+    }
+
+    @GetMapping("/{goalId}")
+    public ResponseEntity<Optional<GoalResponse>> getGoalById(@PathVariable int goalId) {
+        return new ResponseEntity<>(goalService.getGoalById(goalId), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{goalId}")
+    public ResponseEntity<Void> deleteGoal(@PathVariable int goalId) {
+        goalService.deleteGoalById(goalId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

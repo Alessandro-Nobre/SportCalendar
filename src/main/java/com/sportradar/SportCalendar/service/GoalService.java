@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GoalService {
@@ -41,6 +42,25 @@ public class GoalService {
 
     public List<GoalEntity> getGoals(){
         return goalRepository.findAll();
+    }
+
+    public Optional<GoalResponse> getGoalById(int goalId) {
+        Optional<GoalEntity> goalEntity = goalRepository.findById(goalId);
+
+        if (goalEntity.isPresent()) {
+            return Optional.ofNullable(GoalConverter.convertGoalEntityToGoalResponse(goalEntity.get()));
+        }
+
+        return Optional.empty();
+    }
+
+    public void deleteGoalById(int goalId) {
+        Optional<GoalEntity> goal = goalRepository.findById(goalId);
+
+        if (goal.isPresent()) {
+            goalRepository.deleteById(goalId);
+        }
+
     }
 
 }

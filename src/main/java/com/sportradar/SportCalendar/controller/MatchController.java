@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/match")
@@ -32,4 +33,17 @@ public class MatchController {
 
         return new ResponseEntity<>(matchService.addNewMatch(matchSaveRequest), HttpStatus.CREATED);
     }
+
+    @GetMapping("/{matchId}")
+    public ResponseEntity<Optional<MatchResponse>> getMatchById(@PathVariable int matchId) {
+        return new ResponseEntity<>(matchService.getMatchById(matchId), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{matchId}")
+    public ResponseEntity<Void> deleteMatch(@PathVariable int matchId) {
+        matchService.deleteMatchById(matchId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

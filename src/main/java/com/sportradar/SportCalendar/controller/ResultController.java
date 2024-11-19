@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/result")
@@ -31,5 +32,17 @@ public class ResultController {
     public ResponseEntity<ResultResponse> registerNewResult(@Valid @RequestBody ResultSaveRequest resultSaveRequest) {
 
         return new ResponseEntity<>(resultService.addNewResult(resultSaveRequest), HttpStatus.OK);
+    }
+
+    @GetMapping("/{resultId}")
+    public ResponseEntity<Optional<ResultResponse>> getResultById(@PathVariable int resultId) {
+        return new ResponseEntity<>(resultService.getResultById(resultId), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{resultId}")
+    public ResponseEntity<Void> deleteResult(@PathVariable int resultId) {
+        resultService.deleteResultById(resultId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

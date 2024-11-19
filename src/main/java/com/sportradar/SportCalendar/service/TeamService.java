@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TeamService {
@@ -37,10 +38,25 @@ public class TeamService {
         return teamResponseList;
     }
 
-    public TeamResponse getTeamById(int teamId) {
 
-        TeamEntity getTeamById = teamRepository.getReferenceById(teamId);
+    public Optional<TeamResponse> getTeamById(int teamId) {
+        Optional<TeamEntity> teamEntity = teamRepository.findById(teamId);
 
-        return TeamConverter.convertTeamEntityToTeamResponse(getTeamById);
+        if (teamEntity.isPresent()) {
+            return Optional.ofNullable(TeamConverter.convertTeamEntityToTeamResponse(teamEntity.get()));
+        }
+
+        return Optional.empty();
     }
+
+    public void deleteTeamById(int teamId) {
+        Optional<TeamEntity> team = teamRepository.findById(teamId);
+
+        if (team.isPresent()) {
+            teamRepository.deleteById(teamId);
+        }
+
+    }
+
+
 }

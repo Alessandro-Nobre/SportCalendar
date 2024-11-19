@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/team")
@@ -31,8 +32,16 @@ public class TeamController {
         return new ResponseEntity<>(teamService.addNewTeam(teamSaveRequest), HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/{teamId}")
-    public ResponseEntity<TeamResponse> getTeamById(@PathVariable int teamId) {
+    @GetMapping("/{teamId}")
+    public ResponseEntity<Optional<TeamResponse>> getTeamById(@PathVariable int teamId) {
         return new ResponseEntity<>(teamService.getTeamById(teamId), HttpStatus.OK);
     }
+
+    @DeleteMapping("/{teamId}")
+    public ResponseEntity<Void> deleteTeam(@PathVariable int teamId) {
+        teamService.deleteTeamById(teamId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

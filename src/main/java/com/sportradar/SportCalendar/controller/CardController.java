@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/card")
@@ -28,5 +29,17 @@ public class CardController {
     @PostMapping
     public ResponseEntity<CardResponse> registerNewCard(@Valid @RequestBody CardSaveRequest cardSaveRequest ) {
         return new ResponseEntity<>(cardService.addNewCard(cardSaveRequest), HttpStatus.OK);
+    }
+
+    @GetMapping("/{cardId}")
+    public ResponseEntity<Optional<CardResponse>> getCardById(@PathVariable int cardId) {
+        return new ResponseEntity<>(cardService.getCardById(cardId), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{cardId}")
+    public ResponseEntity<Void> deleteCard(@PathVariable int cardId) {
+        cardService.deleteGoalById(cardId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

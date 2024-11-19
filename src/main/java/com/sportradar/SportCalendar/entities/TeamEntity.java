@@ -15,15 +15,7 @@ import lombok.NoArgsConstructor;
 public class TeamEntity {
 
     @Id
-    @SequenceGenerator(
-            name = "teamId_sequence",
-            sequenceName = "teamId_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "teamhId_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int teamId;
 
     @Column()

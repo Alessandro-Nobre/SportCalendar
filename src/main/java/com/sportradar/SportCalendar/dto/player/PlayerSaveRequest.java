@@ -8,6 +8,6 @@ import lombok.Data;
 public class PlayerSaveRequest {
     private String name;
     private int birthday;
-    private int jersyNumber;
+    private int jerseyNumber;
     private int teamId;
 }

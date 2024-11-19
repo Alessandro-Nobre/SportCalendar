@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -71,5 +72,25 @@ public class MatchService {
         }
         return matchResponseList;
     }
+
+    public Optional<MatchResponse> getMatchById(int matchId) {
+        Optional<MatchEntity> matchEntity = matchRepository.findById(matchId);
+
+        if (matchEntity.isPresent()) {
+            return Optional.ofNullable(MatchConverter.convertMatchEntityToMatchResponse(matchEntity.get()));
+        }
+
+        return Optional.empty();
+    }
+
+    public void deleteMatchById(int matchId) {
+        Optional<MatchEntity> match = matchRepository.findById(matchId);
+
+        if (match.isPresent()) {
+            matchRepository.deleteById(matchId);
+        }
+
+    }
+
 
 }
