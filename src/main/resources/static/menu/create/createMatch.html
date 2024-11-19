@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sports Callendar</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+    }
+
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    label {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+    input[type="text"],
+    input[type="number"] {
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ffffff;
+      border-radius: 4px;
+      width: 100%;
+    }
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      border-color: #007fff;
+      outline: none;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+      border: 2px solid #007fff;
+      background-color: #ffffff;
+      color: #007fff;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    button:hover {
+      background-color: #007fff;
+      color: white;
+    }
+
+  </style>
+</head>
+<body>
+<div id="main">
+  <div id="content">
+    <div id="header">
+      <h2>Match Calendar</h2>
+
+    </div>
+  </div>
+</div>
+<div id="menu">
+
+  <button><a href="../index.html">Matches</a></button>
+  <button><a href="../info/info.html">Events Info</a></button>
+  <button>Create Events</button>
+  <button><a href="../delete/delete.html">Delete Events</a></button>
+</div>
+
+<div id="options">
+  <button>Matches</button>
+  <button><a href="createTeam.html">Teams</a> </button>
+  <button><a href="createPlayer.html">Players</a> </button>
+  <button><a href="createStage.html">Stages</a> </button>
+  <button><a href="createCard.html">Cards</a> </button>
+  <button><a href="createGoal.html">Goals</a> </button>
+  <button><a href="createResult.html">Results</a> </button>
+</div>
+
+<div>
+
+  <h3>To add a new Match, we will need some Information about that Match, please fulfill the form: </h3>
+
+</div>
+
+<form action="/submit" method="POST">
+
+  <!-- Status -->
+
+  <div class="form-group">
+    <label for="status">Status:</label>
+    <input id="status" name="status" required type="text">
+  </div>
+
+  <!-- Season -->
+
+  <div class="form-group">
+    <label for="season">Season:</label>
+    <input id="season" max="9999" min="0000" name="season" required type="number">
+  </div>
+
+  <!-- Date and Time -->
+
+  <div class="form-group">
+    <label for="dateTime">Date and Time:</label>
+    <input id="dateTime" name="dateTime" required type="datetime-local">
+  </div>
+
+  <!-- Stadium -->
+
+  <div class="form-group">
+    <label for="stadium">Stadium:</label>
+    <input id="stadium" name="stadium" required type="text">
+  </div>
+
+  <!-- Match Group -->
+
+  <div class="form-group">
+    <label for="matchGroup">Match Group:</label>
+    <input id="matchGroup" name="matchGroup" required type="text">
+  </div>
+
+  <!-- Origin Competition ID -->
+
+  <div class="form-group">
+    <label for="originCompetitionId">Origin Competition ID:</label>
+    <input id="originCompetitionId" min="0" name="originCompetitionId" required step="1" type="number">
+  </div>
+
+  <!-- Origin Competition Name -->
+
+  <div class="form-group">
+    <label for="originCompetitionName">Origin Competition Name:</label>
+    <input id="originCompetitionName" name="originCompetitionName" required type="text">
+  </div>
+
+  <!-- Home Team ID -->
+
+  <div class="form-group">
+    <label for="homeTeamId">Home Team ID:</label>
+    <input id="homeTeamId" min="0" name="homeTeamId" required step="1" type="number">
+  </div>
+
+  <!-- Away Team ID -->
+
+  <div class="form-group">
+    <label for="awayTeamId">Away Team ID:</label>
+    <input id="awayTeamId" min="0" name="awayTeamId" required step="1" type="number">
+  </div>
+
+  <!-- Stage (Dropdown or Text) -->
+
+  <div class="form-group">
+    <label for="stage">Stage:</label>
+    <select id="stage" name="stage" required>
+      <option value="">Select Stage</option>
+      <option value="GROUP_STAGE">Group Stage</option>
+      <option value="SEMIFINAL">Semi-Final</option>
+      <option value="ROUND OF 16">Round of 16</option>
+      <option value="FINAL">Final</option>
+    </select>
+  </div>
+
+  <!-- Result (Dropdown or Text) -->
+
+  <div class="form-group">
+    <label for="result">Result:</label>
+    <select id="result" name="result" required>
+      <option value="">Select Result</option>
+      <option value="WIN">Win</option>
+      <option value="DRAW">Draw</option>
+      <option value="LOSS">Loss</option>
+    </select>
+  </div>
+
+  <!-- Submit Button -->
+
+  <div class="form-group">
+    <button type="submit"><a href="../afterRequest.html">Submit</a></button>
+  </div>
+</form>
+
+<script src="../../js/app.js"></script>
+
+</body>
+</html>

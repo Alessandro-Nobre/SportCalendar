@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sports Callendar</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+    }
+
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    label {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+    input[type="text"],
+    input[type="number"] {
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ffffff;
+      border-radius: 4px;
+      width: 100%;
+    }
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      border-color: #007fff;
+      outline: none;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+      border: 2px solid #007fff;
+      background-color: #ffffff;
+      color: #007fff;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    button:hover {
+      background-color: #007fff;
+      color: white;
+    }
+
+  </style>
+</head>
+<body>
+<div id="main">
+  <div id="content">
+    <div id="header">
+      <h2>Match Calendar</h2>
+
+    </div>
+  </div>
+</div>
+<div id="menu">
+
+  <button><a href="../index.html">Matches</a></button>
+  <button><a href="../info/info.html">Events Info</a></button>
+  <button>Create Events</button>
+  <button><a href="../delete/delete.html">Delete Events</a></button>
+</div>
+
+<div id="options">
+  <button><a href="createMatch.html">Matches</a> </button>
+  <button><a href="createTeam.html">Teams</a> </button>
+  <button><a href="createPlayer.html">Players</a> </button>
+  <button><a href="createStage.html">Stages</a> </button>
+  <button>Cards</button>
+  <button><a href="createGoal.html">Goals</a> </button>
+  <button><a href="createResult.html">Results</a> </button>
+</div>
+
+<div>
+
+  <h3>To add a new Card, we will need some Information about that Card, please fulfill the form: </h3>
+
+</div>
+
+<form action="/submit" method="POST">
+
+  <!-- Name -->
+
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input id="name" name="name" required type="text">
+  </div>
+
+  <!-- Ordering -->
+
+  <div class="form-group">
+    <label for="ordering">Ordering (Numeric):</label>
+    <input id="ordering" min="1" name="ordering" required type="number">
+  </div>
+
+  <!-- Card Type -->
+
+  <div class="form-group">
+    <label for="cardType">Card Type:</label>
+    <select id="cardType" name="cardType" required>
+      <option value="">Select a Card Type</option>
+      <option value="Yellow">Yellow</option>
+      <option value="Red">Red</option>
+      <option value="SecondYellow">Second Yellow</option>
+    </select>
+  </div>
+
+  <!-- Reason -->
+
+  <div class="form-group">
+    <label for="reason">Reason:</label>
+    <input id="reason" name="reason" required type="text">
+  </div>
+
+  <!-- Time -->
+
+  <div class="form-group">
+    <label for="time">Time (in minutes):</label>
+    <input id="time" min="1" name="time" required type="number">
+  </div>
+
+  <!-- Result ID -->
+
+  <div class="form-group">
+    <label for="resultId">Result ID:</label>
+    <input id="resultId" min="1" name="resultId" required type="number">
+  </div>
+
+  <!-- Player ID -->
+
+  <div class="form-group">
+    <label for="playerId">Player ID:</label>
+    <input id="playerId" min="1" name="playerId" required type="number">
+  </div>
+
+  <!-- Submit Button -->
+
+  <div class="form-group">
+    <button type="submit"><a href="../afterRequest.html">Submit</a></button>
+  </div>
+</form>
+
+<script src="../../js/app.js"></script>
+
+</body>
+</html>
