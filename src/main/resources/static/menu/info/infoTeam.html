@@ -58,6 +58,7 @@
     }
 
   </style>
+
 </head>
 <body>
 <div id="main">
@@ -71,39 +72,30 @@
 <div id="menu">
 
   <button><a href="../index.html">Matches</a></button>
-  <button><a href="../info/info.html">Events Info</a></button>
+  <button><a href="info.html">Events Info</a></button>
   <button><a href="../create/create.html">Create Events</a></button>
   <button><a href="../delete/delete.html">Delete Events</a></button>
+
 </div>
 
 <div id="options">
-  <button><a href="deleteMatch.html">Matches</a> </button>
-  <button><a href="deleteTeam.html">Teams</a> </button>
-  <button><a href="deletePlayer.html">Players</a> </button>
-  <button><a href="deleteStage.html">Stages</a> </button>
-  <button><a href="deleteCard.html">Cards</a> </button>
-  <button><a href="deleteGoal.html">Goals</a> </button>
-  <button>Results</button>
+  <button><a href="infoMatch.html">Matches</a></button>
+  <button>Teams</button>
+  <button><a href="infoPlayer.html">Players</a></button>
+  <button><a href="infoStage.html">Stages</a></button>
+  <button><a href="infoCard.html">Cards</a></button>
+  <button><a href="infoGoal.html">Goals</a></button>
+  <button><a href="infoResult.html">Results</a></button>
 </div>
+
 
 <div>
 
-  <h3>Please inform which Result you want to delete</h3>
+  <button id="getAll"><a href="../afterRequest.html">Get All</a></button>
+
+  <button id="getById"><a href="../afterRequest.html">Get By ID</a></button>
 
 </div>
-
-<form action="/submit" method="DELETE">
-
-  <!-- Result Id -->
-
-  <label for="resultId">Enter Result ID:</label>
-  <input id="resultId" min="1" name="resultId" required type="number">
-  <button><a href="../afterRequest.html">Delete Result</a></button>
-
-</form>
-
-
-<script src="../../js/app.js"></script>
 
 </body>
 </html>
