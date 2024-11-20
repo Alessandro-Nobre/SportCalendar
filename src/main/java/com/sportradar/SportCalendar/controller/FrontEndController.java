@@ -8,6 +8,6 @@ public class FrontEndController {
 
     @GetMapping("/")
     public String index() {
-        return "forward:/menu/index.html";
+        return "index.html";
     }
 }
