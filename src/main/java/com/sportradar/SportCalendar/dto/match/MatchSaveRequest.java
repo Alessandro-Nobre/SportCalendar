@@ -1,7 +1,5 @@
 package com.sportradar.SportCalendar.dto.match;
 
-import com.sportradar.SportCalendar.dto.result.ResultSaveRequest;
-import com.sportradar.SportCalendar.dto.stage.StageSaveRequest;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -28,8 +26,8 @@ public class MatchSaveRequest {
     private int homeTeamId;
     @NotNull(message = "Must have a awayTeamId")
     private int awayTeamId;
-    @NotNull(message = "Must have a stage")
-    private StageSaveRequest stage;
-    @NotNull(message = "Must have a result")
-    private ResultSaveRequest result;
+    @NotNull(message = "Must have a stageId")
+    private int stageId;
+    @NotNull(message = "Must have a resultId")
+    private int resultId;
 }

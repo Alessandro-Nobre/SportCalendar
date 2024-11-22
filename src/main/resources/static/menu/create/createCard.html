@@ -87,21 +87,7 @@
 
 </div>
 
-<form action="/submit" method="POST">
-
-  <!-- Name -->
-
-  <div class="form-group">
-    <label for="name">Name:</label>
-    <input id="name" name="name" required type="text">
-  </div>
-
-  <!-- Ordering -->
-
-  <div class="form-group">
-    <label for="ordering">Ordering (Numeric):</label>
-    <input id="ordering" min="1" name="ordering" required type="number">
-  </div>
+<form id="card-form">
 
   <!-- Card Type -->
 
@@ -146,11 +132,48 @@
   <!-- Submit Button -->
 
   <div class="form-group">
-    <button type="submit"><a href="../../afterRequest.html">Submit</a></button>
+    <button id="submit-button" type="submit">Submit</button>
   </div>
 </form>
 
-<script src="../../js/app.js"></script>
+<script>
+  document.getElementById('card-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
 
+    // Gather the form data
+    const formData = {
+      cardType: document.getElementById('cardType').value,
+      reason: document.getElementById('reason').value,
+      time: document.getElementById('time').value,
+      resultId: document.getElementById('resultId').value,
+      playerId: document.getElementById('playerId').value
+
+    };
+
+    // Send the form data using Fetch API
+    fetch('/api/card', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(data => {
+              // Store the response data in local storage
+              localStorage.setItem('apiResponse', JSON.stringify(data));
+              // Redirect to afterRequest.html
+              window.location.href = '../../afterRequest.html';
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+  });
+</script>
 </body>
 </html>

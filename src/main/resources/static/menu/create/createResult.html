@@ -87,8 +87,7 @@
 
 </div>
 
-<form action="/submit" method="POST">
-
+<form id="result-form">
   <!-- Home Goals -->
 
   <div class="form-group">
@@ -106,25 +105,65 @@
   <!-- Winner -->
 
   <div class="form-group">
-    <label for="winner">Winner (Home/Away):</label>
-    <input id="winner" name="winner" required type="text">
+    <label for="winner">Winner:</label>
+    <select id="winner" name="winner" required>
+      <option value="">Select Winner</option>
+      <option value="HOME">Home</option>
+      <option value="DRAW">Draw</option>
+      <option value="AWAY">Away</option>
+    </select>
   </div>
 
   <!-- Message -->
 
   <div class="form-group">
     <label for="message">Message:</label>
-    <textarea id="message" name="message" required rows="4"></textarea>
+    <textarea id="message" name="message" rows="4"></textarea>
   </div>
 
   <!-- Submit Button -->
 
   <div class="form-group">
-    <button type="submit"><a href="../../afterRequest.html">Submit</a></button>
+    <button id="submit-button" type="submit">Submit</button>
   </div>
 </form>
 
-<script src="../../js/app.js"></script>
+<script>
+  document.getElementById('result-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
 
+    // Gather the form data
+    const formData = {
+      homeGoals: document.getElementById('homeGoals').value,
+      awayGoals: document.getElementById('awayGoals').value,
+      winner: document.getElementById('winner').value,
+      message: document.getElementById('message').value
+    };
+
+    // Send the form data using Fetch API
+    fetch('/api/result', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(data => {
+              // Store the response data in local storage
+              localStorage.setItem('apiResponse', JSON.stringify(data));
+              // Redirect to afterRequest.html
+              window.location.href = '../../afterRequest.html';
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+  });
+</script>
 </body>
 </html>

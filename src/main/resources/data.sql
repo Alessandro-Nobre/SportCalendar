@@ -37,7 +37,7 @@ INSERT INTO result (result_id, home_goals, away_goals, winner, message) VALUES (
 INSERT INTO result (result_id, home_goals, away_goals, winner, message) VALUES (2, 0, 0, NULL, NULL);
 INSERT INTO result (result_id, home_goals, away_goals, winner, message) VALUES (3, 0, 0, NULL, NULL);
 INSERT INTO result (result_id, home_goals, away_goals, winner, message) VALUES (4, 0, 0, NULL, NULL);
-ALTER TABLE result ALTER COLUMN result_id RESTART WITH 4;
+ALTER TABLE result ALTER COLUMN result_id RESTART WITH 5;
 
 
 -- Insert data into card

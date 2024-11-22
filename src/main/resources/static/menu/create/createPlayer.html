@@ -87,7 +87,7 @@
 
 </div>
 
-<form action="/submit" method="POST">
+<form id="player-form">
 
   <!-- Name -->
 
@@ -120,11 +120,47 @@
   <!-- Submit Button -->
 
   <div class="form-group">
-    <button type="submit"><a href="../../afterRequest.html">Submit</a></button>
+    <button id="submit-button" type="submit">Submit</button>
   </div>
 </form>
 
-<script src="../../js/app.js"></script>
+<script>
+  document.getElementById('player-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Gather the form data
+    const formData = {
+      name: document.getElementById('name').value,
+      birthday: document.getElementById('birthday').value,
+      jerseyNumber: document.getElementById('jerseyNumber').value,
+      teamId: document.getElementById('teamId').value
+    };
+
+    // Send the form data using Fetch API
+    fetch('/api/player', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Store the response data in local storage
+      localStorage.setItem('apiResponse', JSON.stringify(data));
+      // Redirect to afterRequest.html
+      window.location.href = '../../afterRequest.html';
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  });
+</script>
 
 </body>
 </html>

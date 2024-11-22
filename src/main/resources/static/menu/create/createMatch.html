@@ -87,8 +87,7 @@
 
 </div>
 
-<form action="/submit" method="POST">
-
+<form id="match-form">
   <!-- Status -->
 
   <div class="form-group">
@@ -152,39 +151,73 @@
     <input id="awayTeamId" min="0" name="awayTeamId" required step="1" type="number">
   </div>
 
-  <!-- Stage (Dropdown or Text) -->
+  <!-- Stage ID -->
 
   <div class="form-group">
-    <label for="stage">Stage:</label>
-    <select id="stage" name="stage" required>
-      <option value="">Select Stage</option>
-      <option value="GROUP_STAGE">Group Stage</option>
-      <option value="SEMIFINAL">Semi-Final</option>
-      <option value="ROUND OF 16">Round of 16</option>
-      <option value="FINAL">Final</option>
-    </select>
+    <label for="stageId">Stage ID:</label>
+    <input id="stageId" name="stageId" required type="number">
+    <h5>Make sure you previously created a new Stage and you are using it here</h5>
+
   </div>
 
-  <!-- Result (Dropdown or Text) -->
+  <!-- Result ID -->
 
   <div class="form-group">
-    <label for="result">Result:</label>
-    <select id="result" name="result" required>
-      <option value="">Select Result</option>
-      <option value="WIN">Win</option>
-      <option value="DRAW">Draw</option>
-      <option value="LOSS">Loss</option>
-    </select>
+    <label for="resultId">Result ID:</label>
+    <input id="resultId" name="resultId" required type="number">
+    <h5>Make sure you previously created a new Result and you are using it here</h5>
   </div>
 
   <!-- Submit Button -->
 
   <div class="form-group">
-    <button type="submit"><a href="../../afterRequest.html">Submit</a></button>
+    <button id="submit-button" type="submit">Submit</button>
   </div>
 </form>
 
-<script src="../../js/app.js"></script>
+<script>
+  document.getElementById('match-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
 
+    // Gather the form data
+    const formData = {
+      status: document.getElementById('status').value,
+      season: document.getElementById('season').value,
+      dateTime: document.getElementById('dateTime').value,
+      stadium: document.getElementById('stadium').value,
+      matchGroup: document.getElementById('matchGroup').value,
+      originCompetitionId: document.getElementById('originCompetitionId').value,
+      originCompetitionName: document.getElementById('originCompetitionName').value,
+      homeTeamId: document.getElementById('homeTeamId').value,
+      awayTeamId: document.getElementById('awayTeamId').value,
+      stageId: document.getElementById('stageId').value,
+      resultId: document.getElementById('resultId').value
+    };
+
+    // Send the form data using Fetch API
+    fetch('/api/match', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(data => {
+              // Store the response data in local storage
+              localStorage.setItem('apiResponse', JSON.stringify(data));
+              // Redirect to afterRequest.html
+              window.location.href = '../../afterRequest.html';
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+  });
+</script>
 </body>
 </html>

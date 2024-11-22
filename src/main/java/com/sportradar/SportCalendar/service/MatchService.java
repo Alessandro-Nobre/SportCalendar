@@ -2,12 +2,8 @@ package com.sportradar.SportCalendar.service;
 
 
 import com.sportradar.SportCalendar.converter.MatchConverter;
-import com.sportradar.SportCalendar.converter.ResultConverter;
-import com.sportradar.SportCalendar.converter.StageConverter;
 import com.sportradar.SportCalendar.dto.match.MatchResponse;
 import com.sportradar.SportCalendar.dto.match.MatchSaveRequest;
-import com.sportradar.SportCalendar.dto.result.ResultSaveRequest;
-import com.sportradar.SportCalendar.dto.stage.StageSaveRequest;
 import com.sportradar.SportCalendar.entities.MatchEntity;
 import com.sportradar.SportCalendar.entities.ResultEntity;
 import com.sportradar.SportCalendar.entities.StageEntity;
@@ -41,8 +37,8 @@ public class MatchService {
     }
 
     public MatchResponse addNewMatch(MatchSaveRequest matchSaveRequest) {
-        StageEntity stageEntity = saveStageEntity(matchSaveRequest.getStage());
-        ResultEntity resultEntity = saveResultEntity(matchSaveRequest.getResult());
+        StageEntity stageEntity = stageRepository.getReferenceById(matchSaveRequest.getStageId());
+        ResultEntity resultEntity = resultRepository.getReferenceById(matchSaveRequest.getResultId());
         TeamEntity homeTeam = teamRepository.getReferenceById(matchSaveRequest.getHomeTeamId());
         TeamEntity awayTeam = teamRepository.getReferenceById(matchSaveRequest.getAwayTeamId());
 
@@ -52,16 +48,6 @@ public class MatchService {
 
         return MatchConverter.convertMatchEntityToMatchResponse(savedMatch);
     }
-
-    private StageEntity saveStageEntity(StageSaveRequest stageSaveRequest) {
-        StageEntity stageEntity = StageConverter.convertStageSaveRequestToStageEntity(stageSaveRequest);
-       return stageRepository.save(stageEntity);
-    }
-
-    private ResultEntity saveResultEntity(ResultSaveRequest resultSaveRequest) {
-            ResultEntity resultEntity = ResultConverter.convertResultSaveRequestToResultEntity(resultSaveRequest);
-           return resultRepository.save(resultEntity);
-        }
 
     public List<MatchResponse> getMatches() {
         List<MatchEntity> matchList = matchRepository.findAll();

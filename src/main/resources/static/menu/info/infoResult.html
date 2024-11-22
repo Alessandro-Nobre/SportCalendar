@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sports Callendar</title>
+  <title>Sports Calendar</title>
 
   <style>
     body {
@@ -27,7 +27,24 @@
       background-color: #007fff;
       color: white;
     }
-
+        button:hover {
+      background-color: #007fff;
+      color: white;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #007fff;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #007fff;
+      color: white;
+    }
   </style>
 
 </head>
@@ -36,7 +53,6 @@
   <div id="content">
     <div id="header">
       <h2>Match Calendar</h2>
-
     </div>
   </div>
 </div>
@@ -62,13 +78,74 @@
 
 <div>
 
-  <button id="getAll"><a href="../../afterRequest.html">Get All</a></button>
+  <button id="getAll">Get All</button>
 
   <button id="getById"><a href="byId/infoResultById.html">Get By ID</a></button>
 
 </div>
 
-<script src="../../js/app.js"></script>
+<div id="resultTableContainer"></div>
+
+<script>
+  document.getElementById('getAll').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default behavior of the button
+    fetch('/api/result')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        displayResult(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  });
+
+  function displayResult(result) {
+    const container = document.getElementById('resultTableContainer');
+    if (result.length === 0) {
+      container.innerHTML = '<p>No result found.</p>';
+      return;
+    }
+
+    let tableHtml = `
+      <table>
+        <thead>
+          <tr>
+            <th>Result ID</th>
+            <th>Home Goals</th>
+            <th>Away Goals</th>
+            <th>Winner</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+    result.forEach(result => {
+      tableHtml += `
+        <tr>
+          <td>${result.resultId}</td>
+          <td>${result.homeGoals}</td>
+          <td>${result.awayGoals}</td>
+          <td>${result.winner}</td>
+          <td>${result.message}</td>
+        </tr>
+      `;
+    });
+
+    tableHtml += `
+        </tbody>
+      </table>
+    `;
+
+    container.innerHTML = tableHtml;
+  }
+
+</script>
 
 </body>
 </html>

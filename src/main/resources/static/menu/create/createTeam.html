@@ -87,8 +87,7 @@
 
 </div>
 
-<form action="/submit" method="POST">
-
+<form id="team-form">
   <!-- Team name -->
 
   <div>
@@ -133,10 +132,47 @@
 
   <!-- Submit -->
 
-  <button type="submit"><a href="../../afterRequest.html">Submit</a></button>
+  <button id="submit-button" type="submit">Submit</button>
 </form>
 
-<script src="../../js/app.js"></script>
+<script>
+  document.getElementById('team-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
 
+    // Gather the form data
+    const formData = {
+      name: document.getElementById('name').value,
+      officialName: document.getElementById('officialName').value,
+      slug: document.getElementById('slug').value,
+      abbreviation: document.getElementById('abbreviation').value,
+      teamCountryCode: document.getElementById('teamCountryCode').value,
+      stagePosition: document.getElementById('stagePosition').value
+    };
+
+    // Send the form data using Fetch API
+    fetch('/api/team', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(data => {
+              // Store the response data in local storage
+              localStorage.setItem('apiResponse', JSON.stringify(data));
+              // Redirect to afterRequest.html
+              window.location.href = '../../afterRequest.html';
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+  });
+</script>
 </body>
 </html>

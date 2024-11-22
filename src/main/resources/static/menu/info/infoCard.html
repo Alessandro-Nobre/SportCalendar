@@ -27,6 +27,20 @@
       background-color: #007fff;
       color: white;
     }
+        table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #007fff;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #007fff;
+      color: white;
+    }
 
   </style>
 
@@ -62,13 +76,75 @@
 
 <div id="Get">
 
-  <button id="getAll"><a href="../../afterRequest.html">Get All</a></button>
+  <button id="getAll">Get All</button>
 
   <button id="getById"><a href="byId/infoCardById.html">Get By ID</a></button>
 
 </div>
 
-<script src="../../js/app.js"></script>
+<div id="cardTableContainer"></div>
+
+<script>
+  document.getElementById('getAll').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default behavior of the button
+    fetch('/api/card')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        displayCards(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  });
+
+  function displayCards(cards) {
+    const container = document.getElementById('cardTableContainer');
+    if (cards.length === 0) {
+      container.innerHTML = '<p>No cards found.</p>';
+      return;
+    }
+
+    let tableHtml = `
+      <table>
+        <thead>
+          <tr>
+            <th>Card ID</th>
+            <th>Card Type</th>
+            <th>Reason</th>
+            <th>Time</th>
+            <th>Result</th>
+            <th>Player</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+    cards.forEach(card => {
+      tableHtml += `
+        <tr>
+          <td>${card.cardId}</td>
+          <td>${card.cardType}</td>
+          <td>${card.reason}</td>
+          <td>${card.time}</td>
+          <td>${card.result ? card.result.resultId : 'No Result'}</td>
+          <td>${card.player ? card.player.name : 'No Player'}</td>
+        </tr>
+      `;
+    });
+
+    tableHtml += `
+        </tbody>
+      </table>
+    `;
+
+    container.innerHTML = tableHtml;
+  }
+</script>
 
 </body>
 </html>

@@ -27,6 +27,20 @@
       background-color: #007fff;
       color: white;
     }
+        table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #007fff;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #007fff;
+      color: white;
+    }
 
   </style>
 
@@ -62,13 +76,71 @@
 
 <div>
 
-  <button id="getAll"><a href="../../afterRequest.html">Get All</a></button>
+  <button id="getAll">Get All</button>
 
   <button id="getById"><a href="byId/infoGoalById.html">Get By ID</a></button>
 
 </div>
 
-<script src="../../js/app.js"></script>
+<div id="goalTableContainer"></div>
+
+<script>
+  document.getElementById('getAll').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default behavior of the button
+    fetch('/api/goal')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        displayGoals(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  });
+
+  function displayGoals(goals) {
+    const container = document.getElementById('goalTableContainer');
+    if (goals.length === 0) {
+      container.innerHTML = '<p>No goals found.</p>';
+      return;
+    }
+
+    let tableHtml = `
+      <table>
+        <thead>
+          <tr>
+            <th>Goal ID</th>
+            <th>Match Time</th>
+            <th>Result ID</th>
+            <th>Player ID</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+    goals.forEach(goal => {
+      tableHtml += `
+        <tr>
+          <td>${goal.goalId}</td>
+          <td>${goal.time}</td>
+          <td>${goal.resultEntity ? goal.resultEntity.resultId : 'No Result'}</td>
+          <td>${goal.playerEntity ? goal.playerEntity.name : 'No Player'}</td>
+        </tr>
+      `;
+    });
+
+    tableHtml += `
+        </tbody>
+      </table>
+    `;
+
+    container.innerHTML = tableHtml;
+  }
+</script>
 
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sports Callendar</title>
+  <title>Sports Calendar</title>
 
   <style>
     body {
@@ -27,28 +27,36 @@
       background-color: #007fff;
       color: white;
     }
-
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #007fff;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #007fff;
+      color: white;
+    }
   </style>
-
 </head>
 <body>
 <div id="main">
   <div id="content">
     <div id="header">
       <h2>Match Calendar</h2>
-
     </div>
   </div>
 </div>
 <div id="menu">
-
   <button><a href="../../index.html">Matches</a></button>
   <button><a href="info.html">Events Info</a></button>
   <button><a href="../create/create.html">Create Events</a></button>
   <button><a href="../delete/delete.html">Delete Events</a></button>
-
 </div>
-
 <div id="options">
   <button><a href="infoMatch.html">Matches</a></button>
   <button><a href="infoTeam.html">Teams</a></button>
@@ -58,17 +66,71 @@
   <button><a href="infoGoal.html">Goals</a></button>
   <button><a href="infoResult.html">Results</a></button>
 </div>
-
-
 <div>
-
-  <button id="getAll"><a href="../../afterRequest.html">Get All</a></button>
-
+  <button id="getAll">Get All</button>
   <button id="getById"><a href="byId/infoPlayerById.html">Get By ID</a></button>
-
 </div>
 
-<script src="../../js/app.js"></script>
+<div id="playerTableContainer"></div>
 
+<script>
+  document.getElementById('getAll').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default behavior of the button
+    fetch('/api/player')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        displayPlayers(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  });
+
+  function displayPlayers(players) {
+    const container = document.getElementById('playerTableContainer');
+    if (players.length === 0) {
+      container.innerHTML = '<p>No players found.</p>';
+      return;
+    }
+
+    let tableHtml = `
+      <table>
+        <thead>
+          <tr>
+            <th>Player ID</th>
+            <th>Name</th>
+            <th>Birthday</th>
+            <th>Jersey Number</th>
+            <th>Team</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+    players.forEach(player => {
+      tableHtml += `
+        <tr>
+          <td>${player.playerId}</td>
+          <td>${player.name}</td>
+          <td>${player.birthday}</td>
+          <td>${player.jerseyNumber}</td>
+          <td>${player.team ? player.team.name : 'No Team'}</td>
+        </tr>
+      `;
+    });
+
+    tableHtml += `
+        </tbody>
+      </table>
+    `;
+
+    container.innerHTML = tableHtml;
+  }
+</script>
 </body>
 </html>

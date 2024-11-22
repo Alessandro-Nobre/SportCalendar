@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class MatchEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int matchId;
 
     @Column()
