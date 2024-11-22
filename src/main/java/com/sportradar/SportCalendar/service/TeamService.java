@@ -5,6 +5,7 @@ import com.sportradar.SportCalendar.dto.team.TeamResponse;
 import com.sportradar.SportCalendar.dto.team.TeamSaveRequest;
 import com.sportradar.SportCalendar.entities.TeamEntity;
 import com.sportradar.SportCalendar.repository.TeamRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class TeamService {
         return Optional.empty();
     }
 
+    @Transactional
     public void deleteTeamById(int teamId) {
         Optional<TeamEntity> team = teamRepository.findById(teamId);
 

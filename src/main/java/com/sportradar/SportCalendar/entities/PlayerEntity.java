@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,6 +32,12 @@ public class PlayerEntity {
     @ManyToOne
     @JoinColumn(name = "team_id")
     private TeamEntity teamEntity;
+
+    @OneToMany(mappedBy = "playerEntity", cascade = CascadeType.ALL)
+    private List<CardEntity> cards;
+
+    @OneToMany(mappedBy = "playerEntity", cascade = CascadeType.ALL)
+    private List<GoalEntity> goals;
 
     @Override
     public String toString() {

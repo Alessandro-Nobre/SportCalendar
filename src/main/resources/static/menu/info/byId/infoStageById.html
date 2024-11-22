@@ -51,6 +51,20 @@
       color: white;
     }
 
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #007fff;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #007fff;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -87,17 +101,75 @@
 
 </div>
 
-<form action="/submit" method="GET">
+<form>
 
-  <!-- Stage Id -->
-
-  <label for="stageId">Enter Stage ID:</label>
-  <input id="stageId" min="0" name="stageId" required step="1" type="number">
-  <button><a href="../../../afterRequest.html">Get Stage Information</a></button>
+  <label for="stageIdInput">Enter Stage ID:</label>
+  <input id="stageIdInput" min="0" name="stageId" required step="1" type="number">
+  <button id="getById" type="submit">Get Stage Information</button>
 
 </form>
 
-<script src="../../js/app.js"></script>
+<div id="stageTableContainer"></div>
+
+<script>
+
+  document.getElementById('getById').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default behavior of the button
+    const stageId = document.getElementById('stageIdInput').value;
+    if (stageId) {
+      fetch(`/api/stage/${stageId}`)
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.json();
+              })
+              .then(data => {
+                displayStage(data);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+    } else {
+      alert('Please enter a valid stage ID');
+    }
+  });
+
+  function displayStage(stage) {
+    const container = document.getElementById('stageTableContainer');
+    if (stage === undefined) {
+      container.innerHTML = '<p>No stage found.</p>';
+      return;
+    }
+
+    let tableHtml = `
+      <table>
+        <thead>
+          <tr>
+            <th>stage ID</th>
+            <th>Name</th>
+            <th>ordering</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+      tableHtml += `
+        <tr>
+          <td>${stage.stageId}</td>
+          <td>${stage.name}</td>
+          <td>${stage.ordering}</td>
+        </tr>
+      `;
+
+    tableHtml += `
+        </tbody>
+      </table>
+    `;
+
+    container.innerHTML = tableHtml;
+  }
+</script>
 
 </body>
 </html>

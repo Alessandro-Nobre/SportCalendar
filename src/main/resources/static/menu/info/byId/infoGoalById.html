@@ -51,6 +51,20 @@
       color: white;
     }
 
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #007fff;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #007fff;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -88,17 +102,77 @@
 
 </div>
 
-<form action="/submit" method="GET">
+<form>
 
-  <!-- Goal Id -->
-
-  <label for="goalId">Enter Goal ID:</label>
-  <input id="goalId" min="0" name="goalId" required step="1" type="number">
-  <button><a href="../../../afterRequest.html">Get Goal Information</a></button>
+  <label for="goalIdInput">Enter Goal ID:</label>
+  <input id="goalIdInput" min="0" name="goalId" required step="1" type="number">
+  <button id="getById" type="submit">Get Goal Information</button>
 
 </form>
 
-<script src="../../js/app.js"></script>
+<div id="goalTableContainer"></div>
+
+<script>
+
+  document.getElementById('getById').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default behavior of the button
+    const goalId = document.getElementById('goalIdInput').value;
+    if (goalId) {
+      fetch(`/api/goal/${goalId}`)
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.json();
+              })
+              .then(data => {
+                displayGoal(data);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+    } else {
+      alert('Please enter a valid goal ID');
+    }
+  });
+
+  function displayGoal(goal) {
+    const container = document.getElementById('goalTableContainer');
+    if (goal === undefined) {
+      container.innerHTML = '<p>No goal found.</p>';
+      return;
+    }
+
+    let tableHtml = `
+      <table>
+        <thead>
+          <tr>
+            <th>Goal ID</th>
+            <th>Match Time</th>
+            <th>Result ID</th>
+            <th>Player ID</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+      tableHtml += `
+        <tr>
+          <td>${goal.goalId}</td>
+          <td>${goal.time}</td>
+          <td>${goal.resultEntity ? goal.resultEntity.resultId : 'No Result'}</td>
+          <td>${goal.playerEntity ? goal.playerEntity.name : 'No Player'}</td>
+        </tr>
+      `;
+
+    tableHtml += `
+        </tbody>
+      </table>
+    `;
+
+    container.innerHTML = tableHtml;
+  }
+</script>
 
 </body>
 </html>

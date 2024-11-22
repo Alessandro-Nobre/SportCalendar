@@ -51,6 +51,20 @@
       color: white;
     }
 
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #007fff;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #007fff;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -87,18 +101,79 @@
 
 </div>
 
-<form action="/submit" method="GET">
+<form>
 
-  <!-- Stage Id -->
-
-  <label for="playerId">Enter Player ID:</label>
-  <input id="playerId" min="0" name="playerId" required step="1" type="number">
-  <button><a href="../../../afterRequest.html">Get Player Information</a></button>
+  <label for="playerIdInput">Enter Player ID:</label>
+  <input id="playerIdInput" min="0" name="playerId" required step="1" type="number">
+  <button id="getById" type="submit">Get Player Information </button>
 
 </form>
 
+<div id="playerTableContainer"></div>
 
-<script src="../../js/app.js"></script>
+<script>
+
+  document.getElementById('getById').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default behavior of the button
+    const playerId = document.getElementById('playerIdInput').value;
+    if (playerId) {
+      fetch(`/api/player/${playerId}`)
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.json();
+              })
+              .then(data => {
+                displayPlayer(data);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+    } else {
+      alert('Please enter a valid player ID');
+    }
+  });
+
+  function displayPlayer(player) {
+    const container = document.getElementById('playerTableContainer');
+    if (player === undefined) {
+      container.innerHTML = '<p>No player found.</p>';
+      return;
+    }
+
+    let tableHtml = `
+      <table>
+        <thead>
+          <tr>
+            <th>Player ID</th>
+            <th>Name</th>
+            <th>Birthday</th>
+            <th>Jersey Number</th>
+            <th>Team</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+      tableHtml += `
+        <tr>
+          <td>${player.playerId}</td>
+          <td>${player.name}</td>
+          <td>${player.birthday}</td>
+          <td>${player.jerseyNumber}</td>
+          <td>${player.team ? player.team.name : 'No Team'}</td>
+        </tr>
+      `;
+
+    tableHtml += `
+        </tbody>
+      </table>
+    `;
+
+    container.innerHTML = tableHtml;
+  }
+</script>
 
 </body>
 </html>

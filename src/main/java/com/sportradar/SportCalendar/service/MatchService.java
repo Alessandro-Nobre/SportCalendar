@@ -12,6 +12,7 @@ import com.sportradar.SportCalendar.repository.MatchRepository;
 import com.sportradar.SportCalendar.repository.ResultRepository;
 import com.sportradar.SportCalendar.repository.StageRepository;
 import com.sportradar.SportCalendar.repository.TeamRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,6 +70,7 @@ public class MatchService {
         return Optional.empty();
     }
 
+    @Transactional
     public void deleteMatchById(int matchId) {
         Optional<MatchEntity> match = matchRepository.findById(matchId);
 

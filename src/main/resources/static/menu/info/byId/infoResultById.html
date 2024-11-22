@@ -51,6 +51,20 @@
       color: white;
     }
 
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #007fff;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #007fff;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -87,18 +101,81 @@
 
 </div>
 
-<form action="/submit" method="GET">
+<form>
 
-  <!-- Result Id -->
-
-  <label for="resultId">Enter Result ID:</label>
-  <input id="resultId" min="0" name="resultId" required step="1" type="number">
-  <button><a href="../../../afterRequest.html">Get Result Information</a></button>
+  <label for="resultIdInput">Enter Result ID:</label>
+  <input id="resultIdInput" min="0" name="resultId" required step="1" type="number">
+  <button id="getById" type="submit">Get Result Information</button>
 
 </form>
 
 
-<script src="../../js/app.js"></script>
+<div id="resultTableContainer"></div>
+
+<script>
+
+  document.getElementById('getById').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default behavior of the button
+    const resultId = document.getElementById('resultIdInput').value;
+    if (resultId) {
+      fetch(`/api/result/${resultId}`)
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.json();
+              })
+              .then(data => {
+                displayResult(data);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+    } else {
+      alert('Please enter a valid result ID');
+    }
+  });
+
+  function displayResult(result) {
+    const container = document.getElementById('resultTableContainer');
+    if (result === undefined) {
+      container.innerHTML = '<p>No result found.</p>';
+      return;
+    }
+
+    let tableHtml = `
+      <table>
+        <thead>
+          <tr>
+            <th>Result ID</th>
+            <th>Home Goals</th>
+            <th>Away Goals</th>
+            <th>Winner</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+      tableHtml += `
+        <tr>
+          <td>${result.resultId}</td>
+          <td>${result.homeGoals}</td>
+          <td>${result.awayGoals}</td>
+          <td>${result.winner}</td>
+          <td>${result.message}</td>
+        </tr>
+      `;
+
+    tableHtml += `
+        </tbody>
+      </table>
+    `;
+
+    container.innerHTML = tableHtml;
+  }
+
+</script>
 
 </body>
 </html>

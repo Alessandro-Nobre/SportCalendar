@@ -7,6 +7,7 @@ import com.sportradar.SportCalendar.entities.PlayerEntity;
 import com.sportradar.SportCalendar.entities.TeamEntity;
 import com.sportradar.SportCalendar.repository.PlayerRepository;
 import com.sportradar.SportCalendar.repository.TeamRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +57,7 @@ public class PlayerService {
       return Optional.empty();
     }
 
+    @Transactional
     public void deletePlayerById(int playerId) {
         Optional<PlayerEntity> player = playerRepository.findById(playerId);
 

@@ -5,6 +5,7 @@ import com.sportradar.SportCalendar.dto.stage.StageResponse;
 import com.sportradar.SportCalendar.dto.stage.StageSaveRequest;
 import com.sportradar.SportCalendar.entities.StageEntity;
 import com.sportradar.SportCalendar.repository.StageRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,7 @@ public class StageService {
         return Optional.empty();
     }
 
+    @Transactional
     public void deleteStageById(int stageId) {
         Optional<StageEntity> stage = stageRepository.findById(stageId);
 

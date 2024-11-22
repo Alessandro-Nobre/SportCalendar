@@ -51,6 +51,20 @@
       color: white;
     }
 
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #007fff;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #007fff;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -87,17 +101,112 @@
 
 </div>
 
-<form action="/submit" method="GET">
+<form>
 
-  <!-- Match Id -->
-
-  <label for="matchId">Enter Match ID:</label>
-  <input id="matchId" min="0" name="matchId" required step="1" type="number">
-  <button><a href="../../../afterRequest.html">Get Match Information</a></button>
+  <label for="matchIdInput">Enter Match ID:</label>
+  <input id="matchIdInput" min="0" name="matchId" required step="1" type="number">
+  <button id="getById" type="submit">Get Match Information</button>
 
 </form>
 
-<script src="../../js/app.js"></script>
+<div id="matchTableContainer"></div>
+
+<script>
+
+  document.getElementById('getById').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default behavior of the button
+    const matchId = document.getElementById('matchIdInput').value;
+    if (matchId) {
+      fetch(`/api/match/${matchId}`)
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.json();
+              })
+              .then(data => {
+                displayMatch(data);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+    } else {
+      alert('Please enter a valid match ID');
+    }
+  });
+
+  function displayMatch(match) {
+    const container = document.getElementById('matchTableContainer');
+    if (match === undefined) {
+      container.innerHTML = '<p>No match found.</p>';
+      return;
+    }
+
+    let tableHtml = `
+      <table>
+        <thead>
+          <tr>
+            <th>Match ID</th>
+            <th>Season</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Time UTC</th>
+            <th>Stadium</th>
+            <th>Match Group</th>
+            <th>Origin Competition Id</th>
+            <th>Origin Competition Name</th>
+            <th>Home Team Id</th>
+            <th>Away Team Id</th>
+            <th>Result</th>
+            <th>Stage</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+      tableHtml += `
+        <tr>
+          <td>${match.matchId}</td>
+          <td>${match.season}</td>
+          <td>${match.status}</td>
+          <td>${formatDate(match.dateTime)}</td>
+          <td>${formatTime(match.dateTime)}</td>
+          <td>${match.stadium}</td>
+          <td>${match.matchGroup}</td>
+          <td>${match.originCompetitionId}</td>
+          <td>${match.originCompetitionName}</td>
+          <td>${match.homeTeamId}</td>
+          <td>${match.awayTeamId}</td>
+          <td>${match.result ? match.result.resultId : 'No Result'}</td>
+          <td>${match.stage ? match.stage.name : 'No Stage'}</td>
+        </tr>
+      `;
+
+    function formatDate(dateTime) {
+      const dateObj = new Date(dateTime); // Convert the datetime string to a Date object
+      return dateObj.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    }
+
+    function formatTime(dateTime) {
+      const dateObj = new Date(dateTime); // Convert the datetime string to a Date object
+      return dateObj.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+    }
+
+    tableHtml += `
+        </tbody>
+      </table>
+    `;
+
+    container.innerHTML = tableHtml;
+  }
+</script>
 
 </body>
 </html>

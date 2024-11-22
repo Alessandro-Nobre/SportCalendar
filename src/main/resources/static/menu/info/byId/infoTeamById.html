@@ -51,6 +51,20 @@
       color: white;
     }
 
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #007fff;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #007fff;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -87,17 +101,83 @@
 
 </div>
 
-<form action="/submit" method="GET">
+<form>
 
-  <!-- Team Id -->
-
-  <label for="teamId">Enter Team ID:</label>
-  <input id="teamId" min="0" name="teamId" required step="1" type="number">
-  <button><a href="../../../afterRequest.html">Get Team Information</a></button>
+  <label for="teamIdInput">Enter Team ID:</label>
+  <input id="teamIdInput" min="0" name="teamId" required step="1" type="number">
+  <button id="getById" type="submit">Get Team Information </button>
 
 </form>
 
-<script src="../../js/app.js"></script>
+<div id="teamTableContainer"></div>
+
+<script>
+
+  document.getElementById('getById').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default behavior of the button
+    const teamId = document.getElementById('teamIdInput').value;
+    if (teamId) {
+      fetch(`/api/team/${teamId}`)
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.json();
+              })
+              .then(data => {
+                displayTeam(data);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+    } else {
+      alert('Please enter a valid team ID');
+    }
+  });
+
+  function displayTeam(team) {
+    const container = document.getElementById('teamTableContainer');
+    if (team === undefined) {
+      container.innerHTML = '<p>No Team found.</p>';
+      return;
+    }
+
+    let tableHtml = `
+      <table>
+        <thead>
+          <tr>
+            <th>Team ID</th>
+            <th>Name</th>
+            <th>Official Name</th>
+            <th>Slug</th>
+            <th>Abbreviation</th>
+            <th>Team Country Code</th>
+            <th>Stage Position</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+      tableHtml += `
+        <tr>
+          <td>${team.teamId}</td>
+          <td>${team.name}</td>
+          <td>${team.officialName}</td>
+          <td>${team.slug}</td>
+          <td>${team.abbreviation}</td>
+          <td>${team.teamCountryCode}</td>
+          <td>${team.stagePosition}</td>
+        </tr>
+      `;
+
+    tableHtml += `
+        </tbody>
+      </table>
+    `;
+
+    container.innerHTML = tableHtml;
+  }
+</script>
 
 </body>
 </html>

@@ -4,7 +4,6 @@ import com.sportradar.SportCalendar.converter.CardConverter;
 import com.sportradar.SportCalendar.dto.cards.CardResponse;
 import com.sportradar.SportCalendar.dto.cards.CardSaveRequest;
 import com.sportradar.SportCalendar.entities.CardEntity;
-import com.sportradar.SportCalendar.entities.GoalEntity;
 import com.sportradar.SportCalendar.entities.PlayerEntity;
 import com.sportradar.SportCalendar.entities.ResultEntity;
 import com.sportradar.SportCalendar.repository.CardRepository;
@@ -65,11 +64,11 @@ public class CardService {
         return Optional.empty();
     }
 
-    public void deleteGoalById(int goalId) {
-        Optional<GoalEntity> goal = goalRepository.findById(goalId);
+    public void deleteCardById(int cardId) {
+        Optional<CardEntity> card = cardRepository.findById(cardId);
 
-        if (goal.isPresent()) {
-            goalRepository.deleteById(goalId);
+        if (card.isPresent()) {
+            cardRepository.deleteById(cardId);
         }
 
     }

@@ -9,9 +9,11 @@ import com.sportradar.SportCalendar.entities.ResultEntity;
 import com.sportradar.SportCalendar.repository.GoalRepository;
 import com.sportradar.SportCalendar.repository.PlayerRepository;
 import com.sportradar.SportCalendar.repository.ResultRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,8 +42,14 @@ public class GoalService {
         return GoalConverter.convertGoalEntityToGoalResponse(savedMatch);
     }
 
-    public List<GoalEntity> getGoals(){
-        return goalRepository.findAll();
+    public List<GoalResponse> getAllGoals(){
+        List<GoalEntity> goalList = goalRepository.findAll();
+
+        List<GoalResponse> goalResponseList = new ArrayList<>();
+        for (int i = 0; i < goalList.size(); i++) {
+            goalResponseList.add(GoalConverter.convertGoalEntityToGoalResponse(goalList.get(i)));
+        }
+        return goalResponseList;
     }
 
     public Optional<GoalResponse> getGoalById(int goalId) {
@@ -54,6 +62,7 @@ public class GoalService {
         return Optional.empty();
     }
 
+    @Transactional
     public void deleteGoalById(int goalId) {
         Optional<GoalEntity> goal = goalRepository.findById(goalId);
 

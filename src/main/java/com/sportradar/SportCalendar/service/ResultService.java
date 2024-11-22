@@ -5,6 +5,7 @@ import com.sportradar.SportCalendar.dto.result.ResultResponse;
 import com.sportradar.SportCalendar.dto.result.ResultSaveRequest;
 import com.sportradar.SportCalendar.entities.ResultEntity;
 import com.sportradar.SportCalendar.repository.ResultRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +50,7 @@ public class ResultService {
         return Optional.empty();
     }
 
+    @Transactional
     public void deleteResultById(int resultId) {
         Optional<ResultEntity> result = resultRepository.findById(resultId);
 

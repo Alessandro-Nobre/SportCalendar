@@ -37,7 +37,7 @@ public class MatchConverter {
                 .matchGroup(matchEntity.getMatchGroup())
                 .originCompetitionId(matchEntity.getOriginCompetitionId())
                 .originCompetitionName(matchEntity.getOriginCompetitionName())
-                .homeTeamId(matchEntity.getHomeTeam() != null ? matchEntity.getAwayTeam().getTeamId() : 0)
+                .homeTeamId(matchEntity.getHomeTeam() != null ? matchEntity.getHomeTeam().getTeamId() : 0)
                 .awayTeamId(matchEntity.getAwayTeam() != null ? matchEntity.getAwayTeam().getTeamId() : 0)
                 .result(matchEntity.getResultEntity() != null ? ResultConverter.convertResultEntityToResultResponse(matchEntity.getResultEntity()) : null)
                 .stage(matchEntity.getStageEntity() != null ? StageConverter.convertStageEntityToStageResponse(matchEntity.getStageEntity()) : null)

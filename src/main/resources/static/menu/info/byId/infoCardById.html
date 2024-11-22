@@ -51,6 +51,20 @@
       color: white;
     }
 
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #007fff;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #007fff;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -87,17 +101,84 @@
 
 </div>
 
-<form action="/submit" method="GET">
+<form>
 
-  <!-- Card Id -->
-
-  <label for="cardId">Card ID: </label>
-  <input id="cardId" min="0" name="cardId" required step="1" type="number">
-  <button><a href="../../../afterRequest.html">Get Card Information</a></button>
+  <label for="cardIdInput">Card ID: </label>
+  <input id="cardIdInput" min="0" name="cardId" required step="1" type="number">
+  <button id="getById" type="submit">Get Card Information</a></button>
 
 </form>
 
-<script src="../../js/app.js"></script>
+<div id="cardTableContainer"></div>
+
+<script>
+
+  document.getElementById('getById').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default behavior of the button
+    const cardId = document.getElementById('cardIdInput').value;
+    if (cardId) {
+      fetch(`/api/card/${cardId}`)
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.json();
+              })
+              .then(data => {
+                displayCard(data);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+    } else {
+      alert('Please enter a valid card ID');
+    }
+  });
+
+  function displayCard(card) {
+    const container = document.getElementById('cardTableContainer');
+    if (card === undefined) {
+      container.innerHTML = '<p>No card found.</p>';
+      return;
+    }
+
+
+    let tableHtml = `
+      <table>
+        <thead>
+          <tr>
+            <th>Card ID</th>
+            <th>Card Type</th>
+            <th>Reason</th>
+            <th>Time</th>
+            <th>Result</th>
+            <th>Player</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+
+      tableHtml += `
+        <tr>
+          <td>${card.cardId}</td>
+          <td>${card.cardType}</td>
+          <td>${card.reason}</td>
+          <td>${card.time}</td>
+          <td>${card.result ? card.result.resultId : 'No Result'}</td>
+          <td>${card.player ? card.player.name : 'No Player'}</td>
+        </tr>
+      `;
+
+
+    tableHtml += `
+        </tbody>
+      </table>
+    `;
+
+    container.innerHTML = tableHtml;
+  }
+</script>
 
 </body>
 </html>

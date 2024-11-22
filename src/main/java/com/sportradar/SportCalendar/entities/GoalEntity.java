@@ -25,7 +25,7 @@ public class GoalEntity {
     @JoinColumn(name = "result_id")
     private ResultEntity resultEntity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "player_id")
     private PlayerEntity playerEntity;
 

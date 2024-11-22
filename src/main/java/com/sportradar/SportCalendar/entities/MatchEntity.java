@@ -53,11 +53,11 @@ public class MatchEntity {
     @JoinColumn(name = "away_team_id")
     private TeamEntity awayTeam;
 
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "result_id")
     private ResultEntity resultEntity;
 
-    @OneToOne()
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stage_id")
     private StageEntity stageEntity;
 

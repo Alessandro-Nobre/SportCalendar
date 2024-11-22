@@ -3,7 +3,6 @@ package com.sportradar.SportCalendar.controller;
 
 import com.sportradar.SportCalendar.dto.goals.GoalResponse;
 import com.sportradar.SportCalendar.dto.goals.GoalSaveRequest;
-import com.sportradar.SportCalendar.entities.GoalEntity;
 import com.sportradar.SportCalendar.service.GoalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +23,9 @@ public class GoalController {
     public GoalController(GoalService goalService) {this.goalService = goalService;}
 
     @GetMapping
-    public List<GoalEntity> getGoals() {return goalService.getGoals();}
+    public ResponseEntity<List<GoalResponse>> getAllGoals() {
+        return new ResponseEntity<>(goalService.getAllGoals(), HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity<GoalResponse> registerNewGoal(@Valid @RequestBody GoalSaveRequest goalSaveRequest) {

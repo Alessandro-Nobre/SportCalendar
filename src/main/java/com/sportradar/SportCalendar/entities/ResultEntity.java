@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,6 +31,12 @@ public class ResultEntity {
 
     @Column
     private String message;
+
+    @OneToMany(mappedBy = "resultEntity", cascade = CascadeType.ALL)
+    private List<GoalEntity> goals;
+
+    @OneToMany(mappedBy = "resultEntity", cascade = CascadeType.ALL)
+    private List<CardEntity> cards;
 
     @Override
     public String toString() {
