@@ -38,7 +38,13 @@ public class PlayerController {
 
     @DeleteMapping("/{playerId}")
     public ResponseEntity<Void> deletePlayer(@PathVariable int playerId) {
-        playerService.deletePlayerById(playerId);
+
+        try {
+            this.playerService.deletePlayerById(playerId);
+
+        }  catch (Exception e) {
+            throw new RuntimeException("Failed to delete player ID: " + playerId, e);
+        }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -46,19 +48,21 @@ public class MatchEntity {
     private Timestamp createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "home_team_id")
+    @JoinColumn(name = "home_team_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private TeamEntity homeTeam;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "away_team_id")
+    @JoinColumn(name = "away_team_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private TeamEntity awayTeam;
 
     @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @JoinColumn(name = "result_id")
+    @JoinColumn(name = "result_id", referencedColumnName = "resultId")
     private ResultEntity resultEntity;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "stage_id")
+    @JoinColumn(name = "stage_id", referencedColumnName = "stageId")
     private StageEntity stageEntity;
 
     @PrePersist

@@ -116,7 +116,14 @@
                 alert('Player deleted successfully!');
                 window.location.href = "../../afterRequest.html";  // Redirect after successful deletion
               } else {
-                alert('Failed to delete player. Please try again.');
+                // If response is not OK, fetch the JSON error message and display it
+                return response.json();
+              }
+            })
+            .then(errorMessage => {
+              if (errorMessage && errorMessage.message) {
+                // Display the error message from the backend
+                alert(`${errorMessage.message}`);
               }
             })
             .catch(error => {

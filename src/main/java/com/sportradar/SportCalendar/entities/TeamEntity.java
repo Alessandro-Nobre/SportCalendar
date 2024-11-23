@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,6 +37,12 @@ public class TeamEntity {
 
     @Column()
     private String stagePosition;
+
+    @OneToMany(mappedBy = "homeTeam")
+    private List<MatchEntity> homeMatches;
+
+    @OneToMany(mappedBy = "awayTeam")
+    private List<MatchEntity> awayMatches;
 
     @Override
     public String toString() {

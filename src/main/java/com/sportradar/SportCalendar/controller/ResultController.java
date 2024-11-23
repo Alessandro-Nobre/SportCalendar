@@ -41,7 +41,13 @@ public class ResultController {
 
     @DeleteMapping("/{resultId}")
     public ResponseEntity<Void> deleteResult(@PathVariable int resultId) {
-        resultService.deleteResultById(resultId);
+
+        try {
+            this.resultService.deleteResultById(resultId);
+
+        }  catch (Exception e) {
+            throw new RuntimeException("Failed to delete Result ID: " + resultId, e);
+        }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

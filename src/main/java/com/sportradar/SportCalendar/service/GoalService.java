@@ -63,13 +63,14 @@ public class GoalService {
     }
 
     @Transactional
-    public void deleteGoalById(int goalId) {
-        Optional<GoalEntity> goal = goalRepository.findById(goalId);
+    public void deleteGoalById(int goalId) throws Exception {
+        GoalEntity goalEntity = goalRepository.getReferenceById(goalId);
 
-        if (goal.isPresent()) {
-            goalRepository.deleteById(goalId);
+        if (goalEntity == null) {
+            throw new Exception("Goal not found");
         }
 
+        goalRepository.delete(goalEntity);
     }
 
 }

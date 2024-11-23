@@ -41,7 +41,13 @@ public class MatchController {
 
     @DeleteMapping("/{matchId}")
     public ResponseEntity<Void> deleteMatch(@PathVariable int matchId) {
-        matchService.deleteMatchById(matchId);
+
+        try {
+            this.matchService.deleteMatchById(matchId);
+
+        }  catch (Exception e) {
+            throw new RuntimeException("Failed to delete match ID: " + matchId, e);
+        }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

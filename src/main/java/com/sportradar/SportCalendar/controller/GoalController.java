@@ -40,7 +40,13 @@ public class GoalController {
 
     @DeleteMapping("/{goalId}")
     public ResponseEntity<Void> deleteGoal(@PathVariable int goalId) {
-        goalService.deleteGoalById(goalId);
+
+        try {
+            this.goalService.deleteGoalById(goalId);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete goal ID: " + goalId, e);
+        }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

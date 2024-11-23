@@ -38,7 +38,13 @@ public class CardController {
 
     @DeleteMapping("/{cardId}")
     public ResponseEntity<Void> deleteCard(@PathVariable int cardId) {
-        cardService.deleteCardById(cardId);
+
+        try {
+            this.cardService.deleteCardById(cardId);
+
+        }  catch (Exception e) {
+            throw new RuntimeException("Failed to delete card ID: " + cardId, e);
+        }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -52,13 +52,15 @@ public class StageService {
     }
 
     @Transactional
-    public void deleteStageById(int stageId) {
-        Optional<StageEntity> stage = stageRepository.findById(stageId);
+    public void deleteStageById(int stageId) throws Exception {
 
-        if (stage.isPresent()) {
-            stageRepository.deleteById(stageId);
+        StageEntity stageEntity= stageRepository.getReferenceById(stageId);
+
+        if (stageEntity == null) {
+            throw new Exception("Stage Not Found");
         }
 
+        stageRepository.delete(stageEntity);
     }
 
 

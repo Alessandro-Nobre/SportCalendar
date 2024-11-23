@@ -38,6 +38,9 @@ public class ResultEntity {
     @OneToMany(mappedBy = "resultEntity", cascade = CascadeType.ALL)
     private List<CardEntity> cards;
 
+    @OneToOne(mappedBy = "resultEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private MatchEntity match;
+
     @Override
     public String toString() {
         return "ResultEntity{" +

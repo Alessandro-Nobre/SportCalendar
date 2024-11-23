@@ -58,12 +58,15 @@ public class PlayerService {
     }
 
     @Transactional
-    public void deletePlayerById(int playerId) {
-        Optional<PlayerEntity> player = playerRepository.findById(playerId);
+    public void deletePlayerById(int playerId) throws Exception {
 
-        if (player.isPresent()) {
-            playerRepository.deleteById(playerId);
+        PlayerEntity playerEntity= playerRepository.getReferenceById(playerId);
+
+        if (playerEntity == null) {
+            throw new Exception("Player Not Found");
         }
+
+        playerRepository.delete(playerEntity);
 
     }
 

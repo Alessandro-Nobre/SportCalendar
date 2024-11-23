@@ -64,12 +64,16 @@ public class CardService {
         return Optional.empty();
     }
 
-    public void deleteCardById(int cardId) {
-        Optional<CardEntity> card = cardRepository.findById(cardId);
 
-        if (card.isPresent()) {
-            cardRepository.deleteById(cardId);
+    public void deleteCardById(int cardId) throws Exception {
+
+        CardEntity cardEntity= cardRepository.getReferenceById(cardId);
+
+        if (cardEntity == null) {
+            throw new Exception("Card Not Found");
         }
+
+        cardRepository.delete(cardEntity);
 
     }
 

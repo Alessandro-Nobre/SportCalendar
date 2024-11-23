@@ -51,12 +51,15 @@ public class TeamService {
     }
 
     @Transactional
-    public void deleteTeamById(int teamId) {
-        Optional<TeamEntity> team = teamRepository.findById(teamId);
+    public void deleteTeamById(int teamId) throws Exception {
 
-        if (team.isPresent()) {
-            teamRepository.deleteById(teamId);
+        TeamEntity teamEntity= teamRepository.getReferenceById(teamId);
+
+        if (teamEntity == null) {
+            throw new Exception("Team Not Found");
         }
+
+        teamRepository.delete(teamEntity);
 
     }
 

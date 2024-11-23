@@ -39,7 +39,14 @@ public class StageController {
 
     @DeleteMapping("/{stageId}")
     public ResponseEntity<Void> deleteStage(@PathVariable int stageId) {
-        stageService.deleteStageById(stageId);
+
+
+        try {
+            this.stageService.deleteStageById(stageId);
+
+        }  catch (Exception e) {
+            throw new RuntimeException("Failed to delete Stage ID: " + stageId, e);
+        }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

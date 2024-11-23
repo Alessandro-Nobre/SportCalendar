@@ -51,12 +51,15 @@ public class ResultService {
     }
 
     @Transactional
-    public void deleteResultById(int resultId) {
-        Optional<ResultEntity> result = resultRepository.findById(resultId);
+    public void deleteResultById(int resultId) throws Exception {
 
-        if (result.isPresent()) {
-            resultRepository.deleteById(resultId);
+        ResultEntity resultEntity= resultRepository.getReferenceById(resultId);
+
+        if (resultEntity == null) {
+            throw new Exception("Result Not Found");
         }
+
+        resultRepository.delete(resultEntity);
 
     }
 }

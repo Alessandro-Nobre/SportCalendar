@@ -71,12 +71,15 @@ public class MatchService {
     }
 
     @Transactional
-    public void deleteMatchById(int matchId) {
-        Optional<MatchEntity> match = matchRepository.findById(matchId);
+    public void deleteMatchById(int matchId) throws Exception {
 
-        if (match.isPresent()) {
-            matchRepository.deleteById(matchId);
+        MatchEntity matchEntity = matchRepository.getReferenceById(matchId);
+
+        if (matchEntity == null) {
+            throw new Exception("Match not found");
         }
+
+        matchRepository.delete(matchEntity);
 
     }
 

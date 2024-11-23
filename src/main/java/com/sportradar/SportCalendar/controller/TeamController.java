@@ -39,7 +39,13 @@ public class TeamController {
 
     @DeleteMapping("/{teamId}")
     public ResponseEntity<Void> deleteTeam(@PathVariable int teamId) {
-        teamService.deleteTeamById(teamId);
+
+        try {
+            this.teamService.deleteTeamById(teamId);
+
+        }  catch (Exception e) {
+            throw new RuntimeException("Failed to delete card ID: " + teamId, e);
+        }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

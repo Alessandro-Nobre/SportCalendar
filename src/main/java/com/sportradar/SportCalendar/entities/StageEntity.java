@@ -24,6 +24,9 @@ public class StageEntity {
     @Column
     private int ordering;
 
+    @OneToOne(mappedBy = "stageEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private MatchEntity match;
+
     @Override
     public String toString() {
         return "StageEntity{" +
