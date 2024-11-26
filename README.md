@@ -82,6 +82,23 @@ It can happen in case you are trying to delete some ID that does not exist on yo
 
 
 
+## Application development
+
+The sports event calendar was supposed to be an web application, about multiple sports but instead of that I did it focused on soccer, based on the Json I received I develop my project. I understood that I did it wrong when I read the exercise document again, but I no longer had time restructure my project.
+
+## Future Improvements
+
+I would like to implement a calendar that would show the events by days on that calendar, due to lack of time I was unable to do so.
+
+One improvement that can be made is the application is the ability to create a Match with all the info of Result and Stage at once, by now we need to create all individually.
+
+## Technology Choices
+
+My project was developed using Spring Boot framework, as a programing language I used, Java, html, a bit of JavaScript and SQL.
+
+
+
+
 
 
 
